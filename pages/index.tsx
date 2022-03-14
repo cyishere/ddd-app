@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
+import Card from "@/components/Card";
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +24,15 @@ const Home: NextPage = () => {
         <Button variant="error" size="large">
           Default
         </Button>
+      </Box>
+      <Box>
+        <Card title="100" subTitle="Set 1" percentage="0%" />
+      </Box>
+      <Box>
+        <Card color="green" title="50" subTitle="Set 2" percentage="10%" />
+      </Box>
+      <Box>
+        <Card color="yellow" title="30" subTitle="Set 3" percentage="73%" />
       </Box>
     </Layout>
   );

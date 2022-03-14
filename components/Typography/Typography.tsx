@@ -7,6 +7,12 @@ export const DisplaySmall = styled.div`
   color: var(--clr-gray-900);
 `;
 
+export const TextSmall = styled.div`
+  font-size: 0.875rem;
+  line-height: 1.43;
+  font-weight: 500;
+`;
+
 export const TextNormal = styled.div`
   font-size: 1rem;
   line-height: 1.5;

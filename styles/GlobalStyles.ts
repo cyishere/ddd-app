@@ -71,6 +71,7 @@ const GlobalStyles = createGlobalStyle`
     --clr-primary-700: hsl(${COLORS.primary[700]});
 
     --clr-green-50: hsl(${COLORS.green[50]});
+    --clr-green-500: hsl(${COLORS.green[500]});
     --clr-green-700: hsl(${COLORS.green[700]});
     --clr-green-900: hsl(${COLORS.green[900]});
 

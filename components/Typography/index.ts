@@ -1,1 +1,1 @@
-export { DisplaySmall, TextNormal } from "./Typography";
+export { DisplaySmall, TextNormal, TextSmall } from "./Typography";
