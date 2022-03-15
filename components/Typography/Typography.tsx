@@ -25,3 +25,10 @@ export const TextLarge = styled.div`
   line-height: 1.255;
   font-weight: 500;
 `;
+
+export const TextMedium = styled.div`
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--clr-gray-900);
+`;

@@ -36,13 +36,13 @@ const Home: NextPage = () => {
         </Button>
       </Box>
       <Box>
-        <Card title="100" subTitle="Set 1" percentage="0%" />
+        <Card title="Set 3" number="100" percentage="0%" />
       </Box>
       <Box>
-        <Card color="green" title="50" subTitle="Set 2" percentage="10%" />
+        <Card color="green" title="Set 4" number="90" percentage="10%" />
       </Box>
       <Box>
-        <Card color="yellow" title="30" subTitle="Set 3" percentage="73%" />
+        <Card color="yellow" title="Set 5" number="27" percentage="73%" />
       </Box>
     </Layout>
   );

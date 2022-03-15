@@ -95,17 +95,18 @@ const GlobalStyles = createGlobalStyle`
     --bs-lg: 0px 4px 6px -2px hsl(${COLORS.gray[900]} / 0.03), 0px 12px 16px -4px hsl(${COLORS.gray[900]} / 0.08);
 
     --gradient-placeholder: linear-gradient(
-      45deg,
-      hsl(240deg 100% 20%) 0%,
-      hsl(289deg 100% 21%) 11%,
-      hsl(315deg 100% 27%) 22%,
-      hsl(329deg 100% 36%) 33%,
-      hsl(337deg 100% 43%) 44%,
-      hsl(357deg 91% 59%) 56%,
-      hsl(17deg 100% 59%) 67%,
-      hsl(34deg 100% 53%) 78%,
-      hsl(45deg 100% 50%) 89%,
-      hsl(55deg 100% 50%) 100%
+      130deg,
+      hsl(341deg 100% 61%) 0%,
+      hsl(346deg 86% 69%) 9%,
+      hsl(348deg 61% 73%) 21%,
+      hsl(347deg 24% 75%) 35%,
+      hsl(181deg 22% 75%) 52%,
+      hsl(178deg 70% 72%) 67%,
+      hsl(188deg 69% 71%) 79%,
+      hsl(198deg 73% 72%) 88%,
+      hsl(206deg 76% 72%) 94%,
+      hsl(213deg 80% 71%) 98%,
+      hsl(219deg 84% 71%) 100%
     );
   }
 

@@ -1,1 +1,7 @@
-export { DisplaySmall, TextNormal, TextSmall, TextLarge } from "./Typography";
+export {
+  DisplaySmall,
+  TextSmall,
+  TextNormal,
+  TextMedium,
+  TextLarge,
+} from "./Typography";

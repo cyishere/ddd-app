@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import Emoji from "../Emoji";
 import { TextNormal } from "../Typography";
+import { createdAt, thisYear } from "./footer-helpers";
 
 const Footer: React.FC = () => {
-  const createdAt = new Date("2022").getFullYear();
-  const today = new Date();
-  const thisYear = today.getFullYear();
-
   return (
     <Wrapper>
       <TextNormal as="p">

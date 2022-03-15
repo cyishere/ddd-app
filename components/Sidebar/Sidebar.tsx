@@ -6,16 +6,12 @@ import { Home, Activity, Settings, LogOut } from "react-feather";
 import Logo from "../Logo";
 import VisuallyHidden from "../VisuallyHidden";
 import Avatar from "../Avatar";
+import { debbie } from "@/utils/users";
 
 interface SidebarProps {}
 
 const Sidebar: React.FC<SidebarProps> = () => {
   const pathname = useRouter().pathname.slice(1);
-
-  const debbie = {
-    name: "Debbie Ocean",
-    imageUrl: "debbie-ocean.jpg",
-  };
 
   return (
     <Wrapper>

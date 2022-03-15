@@ -23,7 +23,7 @@ const STYLES = {
 
 const SIZES = {
   normal: "48px",
-  large: "64px",
+  large: "96px",
 };
 
 const Avatar: React.FC<AvatarProps> = ({ size = "normal", imageUrl, name }) => {

@@ -8,7 +8,7 @@ import { DisplaySmall, TextNormal } from "../Typography";
 
 interface CardProps {
   color?: "default" | "green" | "yellow";
-  subTitle: string;
+  number: string;
   title: string;
   percentage: string;
 }
@@ -30,7 +30,7 @@ const STYLES = {
 
 const Card: React.FC<CardProps> = ({
   color = "default",
-  subTitle,
+  number,
   title,
   percentage,
 }) => {
@@ -38,9 +38,9 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Wrapper style={_styles as CSSProperties}>
-      <TextNormal as="h3">{subTitle}</TextNormal>
+      <TextNormal as="h3">{title}</TextNormal>
       <FlexBetween>
-        <DisplaySmall as="h2">{title}</DisplaySmall>
+        <DisplaySmall>{number}</DisplaySmall>
         <Badge color={color}>{percentage}</Badge>
       </FlexBetween>
     </Wrapper>
