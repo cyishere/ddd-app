@@ -1,9 +1,9 @@
-import type { CSSProperties } from "react";
+import type { ButtonHTMLAttributes, CSSProperties } from "react";
 import styled from "styled-components";
 
 import UnstyledButton from "./UnstyledButton";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "primary" | "success" | "error";
   size?: "normal" | "large";
 }
@@ -53,10 +53,15 @@ const Button: React.FC<ButtonProps> = ({
   variant = "default",
   size = "normal",
   children,
+  ...rest
 }) => {
   const _styles = { ...STYLES[variant], ...SIZES[size] };
 
-  return <Wrapper style={_styles as CSSProperties}>{children}</Wrapper>;
+  return (
+    <Wrapper style={_styles as CSSProperties} {...rest}>
+      {children}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled(UnstyledButton)`
@@ -77,6 +82,18 @@ const Wrapper = styled(UnstyledButton)`
 
   &:hover {
     box-shadow: var(--bs-lg);
+  }
+
+  &:disabled {
+    color: var(--clr-gray-300);
+    background-color: var(--clr-gray-100);
+    border-color: var(--clr-gray-300);
+    box-shadow: none;
+    cursor: not-allowed;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 `;
 

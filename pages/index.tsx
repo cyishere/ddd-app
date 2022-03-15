@@ -26,6 +26,11 @@ const Home: NextPage = () => {
         </Button>
       </Box>
       <Box>
+        <Button variant="error" size="large" disabled>
+          Disabled
+        </Button>
+      </Box>
+      <Box>
         <Card title="100" subTitle="Set 1" percentage="0%" />
       </Box>
       <Box>
