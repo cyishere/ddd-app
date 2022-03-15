@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 
@@ -5,14 +6,24 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/Button";
 import styled from "styled-components";
 import Card from "@/components/Card";
+import { words } from "@/utils/words";
 
 const Home: NextPage = () => {
   return (
     <Layout title="Home">
       <Box>
-        <Link href="/dashboard">
-          <a>Dashboard</a>
-        </Link>
+        <span style={{ marginRight: "1rem" } as CSSProperties}>
+          <Link href="/dashboard">
+            <a>Dashboard</a>
+          </Link>
+        </span>
+        {words.map((word) => (
+          <span key={word.id} style={{ marginRight: "1rem" } as CSSProperties}>
+            <Link href={`/words/${word.german.toLowerCase()}`}>
+              <a>{word.german}</a>
+            </Link>
+          </span>
+        ))}
       </Box>
       <Box>
         <Button>Default</Button>
