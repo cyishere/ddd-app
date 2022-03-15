@@ -1,4 +1,4 @@
-interface WordType {
+export interface WordType {
   id: number;
   article: "die" | "das" | "der";
   german: string;

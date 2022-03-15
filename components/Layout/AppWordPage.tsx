@@ -1,15 +1,22 @@
 import type { CSSProperties } from "react";
-import type { NextPage } from "next";
 import styled from "styled-components";
 import { ArrowRight } from "react-feather";
 
-import { words } from "@/utils/words";
-import { AppLayout } from "@/components/Layout";
-import { AppFooter } from "@/components/Footer";
-import { DisplaySmall } from "@/components/Typography";
-import ProgressBar from "@/components/ProgressBar";
-import { ButtonLink } from "@/components/Button";
-import VisuallyHidden from "@/components/VisuallyHidden";
+import { getGender } from "@/utils/helpers";
+import { GenderTypes } from "@/utils/types";
+import { WordType } from "@/utils/words";
+
+import AppLayout from "./AppLayout";
+import { ButtonLink } from "../Button";
+import ProgressBar from "../ProgressBar";
+import { DisplaySmall } from "../Typography";
+import VisuallyHidden from "../VisuallyHidden";
+import { AppFooter } from "../Footer";
+
+interface AppWordPageProps {
+  word: WordType | undefined;
+  nextUrl: string;
+}
 
 interface StylesTypes {
   default: Record<string, string>;
@@ -41,25 +48,9 @@ const STYLES: StylesTypes = {
   },
 };
 
-const Word: NextPage = () => {
-  const word = words.find((w) => w.id === 2);
-
-  const getGender = (
-    article: "die" | "das" | "der"
-  ): "feminine" | "neuter" | "masculine" => {
-    switch (article) {
-      case "die":
-        return "feminine";
-
-      case "das":
-        return "neuter";
-
-      case "der":
-        return "masculine";
-    }
-  };
-
-  let gender: "feminine" | "neuter" | "masculine" | "default" = "default";
+const AppWordPage: React.FC<AppWordPageProps> = ({ word, nextUrl }) => {
+  let gender: GenderTypes | "default" = "default";
+  const title = word ? word.german : "Word Not Found";
 
   if (word) {
     gender = getGender(word.article!);
@@ -68,7 +59,7 @@ const Word: NextPage = () => {
   const _styles = STYLES[gender];
 
   return (
-    <AppLayout title="Wasser">
+    <AppLayout title={title}>
       <Wrapper>
         <Main>
           <PageHeader>
@@ -88,7 +79,7 @@ const Word: NextPage = () => {
               </>
             ) : null}
           </WordContainer>
-          <ButtonLink href="/words/fruhling">
+          <ButtonLink href={`/words/${nextUrl}`}>
             <ArrowRight />
             <VisuallyHidden>Next</VisuallyHidden>
           </ButtonLink>
@@ -166,4 +157,4 @@ const English = styled.span`
   color: var(--clr-gray-500);
 `;
 
-export default Word;
+export default AppWordPage;

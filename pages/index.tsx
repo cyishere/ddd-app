@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         </span>
         {words.map((word) => (
           <span key={word.id} style={{ marginRight: "1rem" } as CSSProperties}>
-            <Link href={`/words/${word.german.toLowerCase()}`}>
+            <Link href={`/words/${word.id.toString()}`}>
               <a>{word.german}</a>
             </Link>
           </span>
