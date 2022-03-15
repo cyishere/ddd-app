@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/Button";
@@ -8,7 +9,11 @@ import Card from "@/components/Card";
 const Home: NextPage = () => {
   return (
     <Layout title="Home">
-      Hello!
+      <Box>
+        <Link href="/dashboard">
+          <a>Dashboard</a>
+        </Link>
+      </Box>
       <Box>
         <Button>Default</Button>
       </Box>

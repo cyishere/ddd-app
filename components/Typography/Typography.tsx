@@ -19,3 +19,9 @@ export const TextNormal = styled.div`
   font-weight: 400;
   color: var(--clr-gray-500);
 `;
+
+export const TextLarge = styled.div`
+  font-size: 1.125rem;
+  line-height: 1.255;
+  font-weight: 500;
+`;
