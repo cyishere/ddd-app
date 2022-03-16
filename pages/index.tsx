@@ -26,6 +26,13 @@ const Home: NextPage = () => {
         ))}
       </Box>
       <Box>
+        <span>
+          <Link href="/review">
+            <a>Review</a>
+          </Link>
+        </span>
+      </Box>
+      <Box>
         <Button>Default</Button>
       </Box>
       <Box>

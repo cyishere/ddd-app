@@ -17,7 +17,12 @@ const Sidebar: React.FC<SidebarProps> = () => {
     <Wrapper>
       <Nav>
         <SideTitle>
-          <Logo />
+          <Link href="/">
+            <a>
+              <Logo />
+            </a>
+          </Link>
+
           <VisuallyHidden>DDD App</VisuallyHidden>
         </SideTitle>
         <NavList>
