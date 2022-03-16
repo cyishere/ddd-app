@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "normal" | "large";
 }
 
-const STYLES = {
+const _STYLES = {
   default: {
     "--color": `var(--clr-gray-700)`,
     "--borderColor": `var(--clr-gray-300)`,
@@ -55,10 +55,10 @@ const Button: React.FC<ButtonProps> = ({
   children,
   ...rest
 }) => {
-  const _styles = { ...STYLES[variant], ...SIZES[size] };
+  const styles = { ..._STYLES[variant], ...SIZES[size] };
 
   return (
-    <Wrapper style={_styles as CSSProperties} {...rest}>
+    <Wrapper style={styles as CSSProperties} {...rest}>
       {children}
     </Wrapper>
   );

@@ -13,7 +13,7 @@ interface CardProps {
   percentage: string;
 }
 
-const STYLES = {
+const _STYLES = {
   default: {
     "--bgColor": `var(--clr-white)`,
     "--borderColor": `var(--clr-gray-200)`,
@@ -34,10 +34,10 @@ const Card: React.FC<CardProps> = ({
   title,
   percentage,
 }) => {
-  const _styles = STYLES[color];
+  const styles = _STYLES[color];
 
   return (
-    <Wrapper style={_styles as CSSProperties}>
+    <Wrapper style={styles as CSSProperties}>
       <TextNormal as="h3">{title}</TextNormal>
       <FlexBetween>
         <DisplaySmall>{number}</DisplaySmall>

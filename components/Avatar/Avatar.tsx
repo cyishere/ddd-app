@@ -8,7 +8,7 @@ interface AvatarProps {
   name: string;
 }
 
-const STYLES = {
+const _STYLES = {
   normal: {
     "--borderWidth": "0px",
     "--borderColor": "transparent",
@@ -27,11 +27,11 @@ const SIZES = {
 };
 
 const Avatar: React.FC<AvatarProps> = ({ size = "normal", imageUrl, name }) => {
-  const _styles = { ...STYLES[size], "--diameter": SIZES[size] };
+  const styles = { ..._STYLES[size], "--diameter": SIZES[size] };
   const imageSize = Number(SIZES[size].split("px")[0]);
 
   return (
-    <Wrapper style={_styles as CSSProperties}>
+    <Wrapper style={styles as CSSProperties}>
       <Image
         src={`/images/${imageUrl}`}
         alt={name}

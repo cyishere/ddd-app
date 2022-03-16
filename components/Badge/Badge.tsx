@@ -7,7 +7,7 @@ interface BadgeProps {
   color?: "default" | "primary" | "green" | "yellow";
 }
 
-const STYLES = {
+const _STYLES = {
   default: {
     "--bgColor": `var(--clr-gray-100)`,
     "--color": `var(--clr-gray-500)`,
@@ -27,8 +27,8 @@ const STYLES = {
 };
 
 const Badge: React.FC<BadgeProps> = ({ color = "default", children }) => {
-  const _styles = STYLES[color];
-  return <Wrapper style={_styles as CSSProperties}>{children}</Wrapper>;
+  const styles = _STYLES[color];
+  return <Wrapper style={styles as CSSProperties}>{children}</Wrapper>;
 };
 
 const Wrapper = styled(TextSmall)`

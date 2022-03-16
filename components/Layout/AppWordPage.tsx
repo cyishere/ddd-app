@@ -25,7 +25,7 @@ interface StylesTypes {
   masculine: Record<string, string>;
 }
 
-const STYLES: StylesTypes = {
+const _STYLES: StylesTypes = {
   default: {
     "--bgColor": "var(--clr-gray-50)",
     "--primaryColor": "var(--clr-gray-900)",
@@ -56,7 +56,7 @@ const AppWordPage: React.FC<AppWordPageProps> = ({ word, nextUrl }) => {
     gender = getGender(word.article!);
   }
 
-  const _styles = STYLES[gender];
+  const styles = _STYLES[gender];
 
   return (
     <AppLayout title={title}>
@@ -70,7 +70,7 @@ const AppWordPage: React.FC<AppWordPageProps> = ({ word, nextUrl }) => {
           </PageHeader>
         </Main>
         <Section>
-          <WordContainer style={_styles as CSSProperties}>
+          <WordContainer style={styles as CSSProperties}>
             {word ? (
               <>
                 <Article>{word.article}</Article>

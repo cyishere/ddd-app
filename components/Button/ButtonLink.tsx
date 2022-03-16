@@ -8,7 +8,7 @@ interface ButtonLinkProps {
   href: string;
 }
 
-const STYLES = {
+const _STYLES = {
   default: {
     "--color": `var(--clr-gray-700)`,
     "--borderColor": `var(--clr-gray-300)`,
@@ -55,11 +55,11 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({
   href,
   children,
 }) => {
-  const _styles = { ...STYLES[variant], ...SIZES[size] };
+  const styles = { ..._STYLES[variant], ...SIZES[size] };
 
   return (
     <Link href={href} passHref>
-      <Wrapper style={_styles as CSSProperties}>{children}</Wrapper>
+      <Wrapper style={styles as CSSProperties}>{children}</Wrapper>
     </Link>
   );
 };
