@@ -5,7 +5,6 @@ import styled from "styled-components";
 interface AvatarProps {
   size?: "normal" | "large";
   imageUrl: string;
-  name: string;
 }
 
 const _STYLES = {
@@ -26,19 +25,13 @@ const SIZES = {
   large: "96px",
 };
 
-const Avatar: React.FC<AvatarProps> = ({ size = "normal", imageUrl, name }) => {
+const Avatar: React.FC<AvatarProps> = ({ size = "normal", imageUrl }) => {
   const styles = { ..._STYLES[size], "--diameter": SIZES[size] };
   const imageSize = Number(SIZES[size].split("px")[0]);
 
   return (
     <Wrapper style={styles as CSSProperties}>
-      <Image
-        src={`/images/${imageUrl}`}
-        alt={name}
-        width={imageSize}
-        height={imageSize}
-        layout="fixed"
-      />
+      <Image src={imageUrl} alt="" width={imageSize} height={imageSize} />
     </Wrapper>
   );
 };

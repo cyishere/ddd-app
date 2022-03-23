@@ -14,6 +14,7 @@ export default initAuth0({
   },
   routes: {
     callback: config.REDIRECT_URI,
+    // callback: "/dashboard",
     postLogoutRedirect: "/",
   },
   session: {

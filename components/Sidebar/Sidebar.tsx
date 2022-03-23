@@ -3,14 +3,16 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Home, Activity, Settings, LogOut } from "react-feather";
 
+import type { User } from "@/utils/types";
 import Logo from "../Logo";
 import VisuallyHidden from "../VisuallyHidden";
 import Avatar from "../Avatar";
-import { debbie } from "@/utils/users";
 
-interface SidebarProps {}
+interface SidebarProps {
+  user: User;
+}
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: React.FC<SidebarProps> = ({ user }) => {
   const pathname = useRouter().pathname.slice(1);
 
   return (
@@ -56,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href="/logout" passHref>
+            <Link href="/api/logout" passHref>
               <NavLink>
                 <LogOut />
               </NavLink>
@@ -64,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
           </NavItem>
         </NavList>
         <AvatarContainer>
-          <Avatar name={debbie.name} imageUrl={debbie.imageUrl} />
+          <Avatar imageUrl={user.picture} />
         </AvatarContainer>
       </Footer>
     </Wrapper>

@@ -1,38 +1,61 @@
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import styled from "styled-components";
+import router from "next/router";
 
+import { useFetchUser } from "@/hooks/use-fetch-user";
 import { AppLayout } from "@/components/Layout";
 import { AppHeader } from "@/components/Header";
 import { TextLarge } from "@/components/Typography";
 import Profile from "@/components/Profile";
-import Card from "@/components/Card";
 import { AppFooter } from "@/components/Footer";
+import { PlaceholderPage } from "@/components/Placeholder";
+import { ToLearn, ToReview } from "@/components/Words";
 
 const Dashboard: NextPage = () => {
+  const { user, isLoading } = useFetchUser();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user]);
+
+  if (isLoading) {
+    return (
+      <PlaceholderPage>
+        <p>Loading</p>
+      </PlaceholderPage>
+    );
+  }
+
   return (
-    <AppLayout title="Dashboard">
+    <AppLayout title="Dashboard" user={user}>
       <Wrapper>
         <Main>
-          <AppHeader title="Dashboard" subTitle="Welcome back, Debbie Ocean!" />
+          <AppHeader
+            title="Dashboard"
+            subTitle={`Welcome back, ${user.nickname}!`}
+          />
+
           <Section>
             <SectionHeader>
-              <TextLarge as="h2">Words Learning</TextLarge>
+              <TextLarge as="h2">Words To Review</TextLarge>
             </SectionHeader>
-            <CardsWrapper>
-              <Card color="green" title="Set 4" number="90" percentage="10%" />
-            </CardsWrapper>
+
+            <ToReview />
           </Section>
+
           <Section>
             <SectionHeader>
               <TextLarge as="h2">Words To Learn</TextLarge>
             </SectionHeader>
-            <CardsWrapper>
-              <Card color="yellow" title="Set 5" number="27" percentage="73%" />
-            </CardsWrapper>
+
+            <ToLearn />
           </Section>
           <AppFooter />
         </Main>
-        <Profile />
+        <Profile user={user} />
       </Wrapper>
     </AppLayout>
   );
@@ -62,7 +85,5 @@ const SectionHeader = styled.header`
   color: var(--clr-gray-900);
   margin-bottom: var(--spacing);
 `;
-
-const CardsWrapper = styled.div``;
 
 export default Dashboard;

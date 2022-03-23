@@ -1,24 +1,29 @@
-import { debbie } from "@/utils/users";
 import styled from "styled-components";
+
+import type { User } from "@/utils/types";
 import Avatar from "../Avatar";
 import Card from "../Card";
 import { DisplaySmall, TextMedium, TextNormal } from "../Typography";
+import { PlaceholderText } from "../Placeholder";
 
-interface ProfileProps {}
+interface ProfileProps {
+  user: User;
+}
 
-const Profile: React.FC<ProfileProps> = () => {
+const Profile: React.FC<ProfileProps> = ({ user }) => {
   return (
     <Wrapper>
       <Header>
-        <AvatarContainer>
-          <Avatar name={debbie.name} imageUrl={debbie.imageUrl} size="large" />
-        </AvatarContainer>
-        <DisplaySmall as="h2">Debbie Ocean</DisplaySmall>
-        <TextNormal as="p">debbie@oceans.com</TextNormal>
         <HeaderBg />
+        <AvatarContainer>
+          <Avatar imageUrl={user.picture} size="large" />
+        </AvatarContainer>
+        <DisplaySmall as="h2">{user.nickname}</DisplaySmall>
+        <TextNormal as="p">{user.email}</TextNormal>
       </Header>
       <Section>
         <TextMedium as="h2">Words Learned</TextMedium>
+        <PlaceholderText>You haven&#39;t started.</PlaceholderText>
         <Card title="Set 1" number="100" percentage="100%" />
         <Card title="Set 2" number="100" percentage="100%" />
       </Section>
@@ -42,7 +47,7 @@ const Header = styled.header`
   align-items: flex-start;
   position: relative;
 
-  > * {
+  > *:not(:first-child) {
     z-index: 1;
   }
 `;

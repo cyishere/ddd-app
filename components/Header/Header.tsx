@@ -22,6 +22,9 @@ const Header: React.FC<HeaderProps> = () => {
         <ButtonLink variant="primary" href="/register">
           Sign Up
         </ButtonLink>
+        <Link href="/dashboard" passHref>
+          <TextLink>Dashboard</TextLink>
+        </Link>
       </Right>
     );
   } else {

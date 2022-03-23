@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
+import type { User } from "@/utils/types";
 import SEO from "../SEO";
 import Sidebar from "../Sidebar";
 
 interface AppLayoutProps {
   title: string;
+  user: User;
 }
 
-const AppLayout: React.FC<AppLayoutProps> = ({ title, children }) => {
+const AppLayout: React.FC<AppLayoutProps> = ({ title, user, children }) => {
   return (
     <Wrapper>
       <SEO title={title} />
-      <Sidebar />
+      <Sidebar user={user} />
       {children}
     </Wrapper>
   );

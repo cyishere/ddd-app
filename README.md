@@ -1,5 +1,11 @@
 - [x] Auth0
-- [ ] After login, go to dashboard
 - [x] Header buttons:
   - Un-logged in: Login / Sign Up
   - Logged in: Greeting, Dashboard, Logout
+- [ ] After login, go to dashboard
+- [ ] User context store user info
+- [ ] Avatar
+- [ ] Make word cards on dashboard work
+
+- [ ] Setup codegen
+- [ ] Setup apollo client
