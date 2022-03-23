@@ -11,10 +11,10 @@ const Footer: React.FC = () => {
         <TextLeft>
           &copy;{" "}
           {createdAt === thisYear ? thisYear : `${createdAt} - ${thisYear}`} DDD
-          App.
+          App. All rights reserved.
         </TextLeft>
         <TextRight>
-          Made with <Emoji name="coffee">☕</Emoji> by{" "}
+          Made with <Emoji name="cat">😸</Emoji> by{" "}
           <a href="https://cyishere.dev">CY</a>.
         </TextRight>
       </Container>
@@ -29,7 +29,7 @@ const Wrapper = styled.footer`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: var(--maxWidth);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

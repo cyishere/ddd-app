@@ -1,5 +1,6 @@
 export const FONTS = {
   primary: `'Inter', sans-serif`,
+  special: `'Lora', serif`,
 };
 
 export const COLORS = {
@@ -16,6 +17,7 @@ export const COLORS = {
   },
   primary: {
     50: "264deg 100% 98%",
+    100: "267deg 100% 96%",
     500: "260deg 77% 70%",
     600: "259deg 64% 59%",
     700: "258deg 54% 52%",

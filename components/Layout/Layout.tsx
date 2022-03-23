@@ -20,6 +20,9 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
 };
 
 const Wrapper = styled.div`
+  --spacingY: 3rem;
+  --spacingX: 2rem;
+  --maxWidth: 1200px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

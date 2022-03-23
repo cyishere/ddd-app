@@ -66,6 +66,7 @@ const GlobalStyles = createGlobalStyle`
     --clr-gray-900: hsl(${COLORS.gray[900]});
 
     --clr-primary-50: hsl(${COLORS.primary[50]});
+    --clr-primary-100: hsl(${COLORS.primary[100]});
     --clr-primary-500: hsl(${COLORS.primary[500]});
     --clr-primary-600: hsl(${COLORS.primary[600]});
     --clr-primary-700: hsl(${COLORS.primary[700]});
@@ -88,6 +89,7 @@ const GlobalStyles = createGlobalStyle`
 
     /* font-families */
     --ff-primary: ${FONTS.primary};
+    --ff-special: ${FONTS.special};
 
     /* box-shadows */
     --bs-sm: 0px 1px 2px hsl(${COLORS.gray[900]} / 0.06), 0px 1px 3px hsl(${COLORS.gray[900]} / 0.1);

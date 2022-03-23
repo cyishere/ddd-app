@@ -46,13 +46,12 @@ const FlexBetween = css`
 `;
 
 const Wrapper = styled.header`
-  --spacingX: 2rem;
   padding: var(--spacingX);
 `;
 
 const Container = styled.div`
   ${FlexBetween}
-  max-width: 1200px;
+  max-width: var(--maxWidth);
   margin: 0 auto;
   gap: var(--spacingX);
 `;
