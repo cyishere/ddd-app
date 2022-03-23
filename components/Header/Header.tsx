@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = () => {
       <Container>
         <SiteTitle>
           <Logo />
-          <LogoText as="h1">DDD App</LogoText>
+          <LogoText>DDD App</LogoText>
         </SiteTitle>
 
         <Nav>
@@ -99,7 +99,7 @@ const SiteTitle = styled.div`
   ${FlexBetween}
 `;
 
-const LogoText = styled.h1`
+const LogoText = styled.span`
   ${DisplayXsMedium}
   color: var(--clr-gray-900);
   margin-left: 0.875rem;
