@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const DisplaySmall = styled.div`
   font-size: 1.875rem;
@@ -31,4 +31,53 @@ export const TextMedium = styled.div`
   line-height: 1.5;
   font-weight: 500;
   color: var(--clr-gray-900);
+`;
+
+// New method
+export const DisplayXlSemiBold = css`
+  font-size: 3.75rem;
+  line-height: 1.2;
+  font-weight: 600;
+`;
+
+export const DisplayXsMedium = css`
+  font-size: 1.5rem;
+  line-height: 1.33;
+  font-weight: 500;
+`;
+
+export const DisplaySmSemiBold = css`
+  font-size: 1.875rem;
+  line-height: 1.27;
+  font-weight: 600;
+`;
+
+export const TextXlMedium = css`
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 500;
+`;
+
+export const TextLgMedium = css`
+  font-size: 1.125rem;
+  line-height: 1.255;
+  font-weight: 500;
+`;
+
+export const TextLgNormal = css`
+  font-size: 1.125rem;
+  line-height: 1.255;
+  font-weight: 400;
+`;
+
+export const TextMdMedium = css`
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+`;
+
+export const TextMdNormal = css`
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
 `;
