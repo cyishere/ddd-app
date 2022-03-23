@@ -1,0 +1,6 @@
+query WordsBySet($set_id: Int!) {
+  words(where: { set_id: { _eq: $set_id } }) {
+    id
+    unstarted
+  }
+}
