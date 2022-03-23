@@ -78,7 +78,7 @@ const Wrapper = styled(UnstyledButton)`
   display: flex;
   justify-content: center;
   align-items: center;
-  row-gap: 8px;
+  gap: 0.5rem;
 
   &:hover {
     box-shadow: var(--bs-lg);
