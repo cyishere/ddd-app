@@ -9,3 +9,9 @@ export interface User {
   sub: string;
   updated_at: string;
 }
+
+export interface Set {
+  id: number;
+  name: string;
+  slug: string;
+}

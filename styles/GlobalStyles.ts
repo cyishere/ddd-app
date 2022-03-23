@@ -137,7 +137,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a:hover {
-    text-decoration: revert;
+    text-decoration: none;
   }
 
   main:focus {

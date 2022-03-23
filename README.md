@@ -7,5 +7,7 @@
 - [ ] Avatar
 - [ ] Make word cards on dashboard work
 
-- [ ] Setup codegen
-- [ ] Setup apollo client
+- [x] Setup codegen
+- [x] Setup apollo client
+- [ ] Update learned cards with data
+- [ ] Make set(words) page work

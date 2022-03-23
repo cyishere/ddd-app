@@ -1,0 +1,13 @@
+query GetWords($set_id: Int!) {
+  words(where: { set_id: { _eq: $set_id } }) {
+    id
+    article
+    german
+    english
+    set {
+      name
+      slug
+    }
+    unstarted
+  }
+}

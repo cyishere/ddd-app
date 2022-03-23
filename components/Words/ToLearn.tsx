@@ -1,15 +1,16 @@
+import { useGetSetsQuery } from "graphql/generated/graphql";
 import styled from "styled-components";
-import Card from "../Card";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
+import WordCard from "./ToLearnCard";
 
 interface ToLearnProps {}
 
 const ToLearn: React.FC<ToLearnProps> = () => {
   // get set array
-  // get words array by set
-  const loading = false;
+  const { data, loading, error } = useGetSetsQuery();
+  console.log({ set: data });
 
   if (loading) {
     return (
@@ -17,17 +18,39 @@ const ToLearn: React.FC<ToLearnProps> = () => {
         <Loader size={48} />
       </PlaceholderText>
     );
+  } else if (error) {
+    return (
+      <PlaceholderText>
+        <ErrorText>{error.message}</ErrorText>
+      </PlaceholderText>
+    );
   }
 
+  // get words array by set
+
   return (
-    <Wrapper>
-      <Card color="yellow" title="Set 5" number="27" percentage="73%" />
-    </Wrapper>
+    <>
+      {data ? (
+        <Wrapper>
+          {data.sets.map((set) => (
+            <WordCard key={set.id} set={set} />
+          ))}
+        </Wrapper>
+      ) : (
+        <PlaceholderText>
+          <ErrorText>Something wrong...</ErrorText>
+        </PlaceholderText>
+      )}
+    </>
   );
 };
 
 const Wrapper = styled.div`
   ${CardWrapper}
+`;
+
+const ErrorText = styled.span`
+  color: var(--clr-red-500);
 `;
 
 export default ToLearn;
