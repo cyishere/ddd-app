@@ -4,10 +4,38 @@ import Link from "next/link";
 import Logo from "../Logo";
 import { DisplayXsMedium, TextMdMedium } from "../Typography";
 import { ButtonLink } from "../Button";
+import { useFetchUser } from "hooks/use-fetch-user";
 
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {
+  const { user, isLoading } = useFetchUser();
+
+  let NavAction;
+
+  if (!user || isLoading) {
+    NavAction = (
+      <Right>
+        <Link href="/api/login" passHref>
+          <TextLink>Login</TextLink>
+        </Link>
+        <ButtonLink variant="primary" href="/register">
+          Sign Up
+        </ButtonLink>
+      </Right>
+    );
+  } else {
+    NavAction = (
+      <Right>
+        <TextLink as="span">Hello, {user.nickname}!</TextLink>
+        <Link href="/dashboard" passHref>
+          <TextLink>Dashboard</TextLink>
+        </Link>
+        <ButtonLink href="/api/logout">Logout</ButtonLink>
+      </Right>
+    );
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -25,15 +53,8 @@ const Header: React.FC<HeaderProps> = () => {
               <TextLink>How&#39;s this work?</TextLink>
             </Link>
           </Left>
+          {NavAction}
         </Nav>
-        <Right>
-          <Link href="/login" passHref>
-            <TextLink>Login</TextLink>
-          </Link>
-          <ButtonLink variant="primary" href="/register">
-            Sign Up
-          </ButtonLink>
-        </Right>
       </Container>
     </Wrapper>
   );
