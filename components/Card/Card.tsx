@@ -10,7 +10,7 @@ interface CardProps {
   color?: "default" | "green" | "yellow";
   number: string;
   title: string;
-  percentage: string;
+  percentage?: string;
 }
 
 const _STYLES = {
@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({
       <TextNormal as="h3">{title}</TextNormal>
       <FlexBetween>
         <DisplaySmall>{number}</DisplaySmall>
-        <Badge color={color}>{percentage}</Badge>
+        {percentage ? <Badge color={color}>{percentage}</Badge> : null}
       </FlexBetween>
     </Wrapper>
   );

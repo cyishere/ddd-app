@@ -15,12 +15,18 @@ const WordCard: React.FC<WordCardProps> = ({ set }) => {
     },
   });
 
+  // if words in this set are all be learned, hide it
+  if (data?.words.every((word) => !word.unstarted)) {
+    return null;
+  }
+
   const unstartedWords = data?.words.filter((word) => word.unstarted);
   const startedWords = data?.words.filter((word) => !word.unstarted);
 
   const number = `${unstartedWords?.length || 0} / ${data?.words.length || 0}`;
-  const percentage =
-    ((startedWords?.length || 0) / (data?.words.length || 1)) * 100;
+  const percentage = Math.round(
+    ((startedWords?.length || 0) / (data?.words.length || 1)) * 100
+  );
 
   return (
     <Link href={`/set/${set.slug}`} passHref>

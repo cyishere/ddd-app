@@ -10,4 +10,6 @@
 - [x] Setup codegen
 - [x] Setup apollo client
 - [x] Update learned cards with data
+- [x] Update new cards with logic
+- [x] Update review cards with logic
 - [ ] Make set(words) page work
