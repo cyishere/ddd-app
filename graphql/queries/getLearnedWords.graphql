@@ -1,0 +1,10 @@
+query GetLearnedWords {
+  words(where: { learned: { _eq: true } }) {
+    id
+    set {
+      name
+      slug
+    }
+    set_id
+  }
+}

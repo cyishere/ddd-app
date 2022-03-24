@@ -1,16 +1,24 @@
-import { useGetSetsQuery } from "graphql/generated/graphql";
+import type { QueryResult } from "@apollo/client";
 import styled from "styled-components";
+
+import { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
 import WordCard from "./ToLearnCard";
 
-interface ToLearnProps {}
+interface ToLearnProps {
+  setsQueryResponse: QueryResult<
+    GetSetsQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
+}
 
-const ToLearn: React.FC<ToLearnProps> = () => {
+const ToLearn: React.FC<ToLearnProps> = ({ setsQueryResponse }) => {
   // get set array
-  const { data, loading, error } = useGetSetsQuery();
-  console.log({ set: data });
+  const { data, loading, error } = setsQueryResponse;
 
   if (loading) {
     return (

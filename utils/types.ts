@@ -15,3 +15,22 @@ export interface Set {
   name: string;
   slug: string;
 }
+
+export interface Word {
+  id: number;
+  article: string;
+  german: string;
+  english: string;
+  set: {
+    name: string;
+    slug: string;
+  };
+  unstarted: boolean;
+  learned: boolean;
+}
+
+export interface LearnedSet {
+  set_id: number;
+  set_name: string;
+  words_length: number;
+}

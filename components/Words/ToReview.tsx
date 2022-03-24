@@ -1,15 +1,24 @@
-import { useGetSetsQuery } from "graphql/generated/graphql";
+import type { QueryResult } from "@apollo/client";
 import styled from "styled-components";
+
+import { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
 import WordCard from "./ToReviewCard";
 
-interface ToReviewProps {}
+interface ToReviewProps {
+  setsQueryResponse: QueryResult<
+    GetSetsQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
+}
 
-const ToReview: React.FC<ToReviewProps> = () => {
+const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse }) => {
   // get sets
-  const { data, loading, error } = useGetSetsQuery();
+  const { data, loading, error } = setsQueryResponse;
   // get words by sets
 
   if (loading) {

@@ -9,5 +9,6 @@ query GetWords($set_id: Int!) {
       slug
     }
     unstarted
+    learned
   }
 }

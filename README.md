@@ -5,9 +5,9 @@
 - [ ] After login, go to dashboard
 - [ ] User context store user info
 - [ ] Avatar
-- [ ] Make word cards on dashboard work
+- [x] Make word cards on dashboard work
 
 - [x] Setup codegen
 - [x] Setup apollo client
-- [ ] Update learned cards with data
+- [x] Update learned cards with data
 - [ ] Make set(words) page work

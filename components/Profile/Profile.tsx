@@ -1,16 +1,55 @@
+import type { QueryResult } from "@apollo/client";
 import styled from "styled-components";
 
-import type { User } from "@/utils/types";
+import type { LearnedSet, User } from "@/utils/types";
+import {
+  Exact,
+  GetSetsQuery,
+  useGetLearnedWordsQuery,
+} from "@/graphql/generated/graphql";
 import Avatar from "../Avatar";
-import Card from "../Card";
 import { DisplaySmall, TextMedium, TextNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
+import Loader from "../Loader";
+import { LearnedCard } from "../Words";
 
 interface ProfileProps {
   user: User;
+  setsQueryResponse: QueryResult<
+    GetSetsQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
 }
 
-const Profile: React.FC<ProfileProps> = ({ user }) => {
+const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
+  const { data: setData, loading, error } = setsQueryResponse;
+
+  // find all learned words
+  const { data: wordData } = useGetLearnedWordsQuery();
+
+  let unfilteredLearnedSets: Array<LearnedSet | undefined>;
+  let learnedSets: LearnedSet[] = [];
+  // group them by set
+  if (setData && wordData) {
+    unfilteredLearnedSets = setData.sets.map((set) => {
+      const wordsInThisSet = wordData?.words.filter((word) => {
+        return word.set_id === set.id;
+      });
+
+      if (wordsInThisSet.length > 0) {
+        return {
+          set_id: set.id,
+          set_name: set.name,
+          words_length: wordsInThisSet.length,
+        };
+      }
+    });
+
+    learnedSets = unfilteredLearnedSets.filter((set) => set) as LearnedSet[];
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -23,9 +62,19 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       </Header>
       <Section>
         <TextMedium as="h2">Words Learned</TextMedium>
-        <PlaceholderText>You haven&#39;t started.</PlaceholderText>
-        <Card title="Set 1" number="100" percentage="100%" />
-        <Card title="Set 2" number="100" percentage="100%" />
+        {loading ? (
+          <PlaceholderText>
+            <Loader size={48} />
+          </PlaceholderText>
+        ) : error ? (
+          <PlaceholderText>
+            <ErrorText>{error.message}</ErrorText>
+          </PlaceholderText>
+        ) : learnedSets ? (
+          learnedSets.map((set) => <LearnedCard key={set?.set_id} set={set!} />)
+        ) : (
+          <PlaceholderText>You haven&#39;t started.</PlaceholderText>
+        )}
       </Section>
     </Wrapper>
   );
@@ -74,6 +123,10 @@ const Section = styled.section`
   > *:first-of-type {
     margin-bottom: 1.5rem;
   }
+`;
+
+const ErrorText = styled.span`
+  color: var(--clr-red-500);
 `;
 
 export default Profile;

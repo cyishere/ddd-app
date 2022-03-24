@@ -20,7 +20,8 @@
       "@/components/*": ["components/*"],
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@/hooks/*": ["hooks/*"],
+      "@/graphql/*": ["graphql/*"]
     },
     "incremental": true
   },

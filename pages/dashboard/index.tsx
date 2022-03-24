@@ -11,9 +11,11 @@ import Profile from "@/components/Profile";
 import { AppFooter } from "@/components/Footer";
 import { PlaceholderPage } from "@/components/Placeholder";
 import { ToLearn, ToReview } from "@/components/Words";
+import { useGetSetsQuery } from "@/graphql/generated/graphql";
 
 const Dashboard: NextPage = () => {
   const { user, isLoading } = useFetchUser();
+  const setsQueryResponse = useGetSetsQuery();
 
   useEffect(() => {
     if (!user) {
@@ -43,7 +45,7 @@ const Dashboard: NextPage = () => {
               <TextLarge as="h2">Words To Review</TextLarge>
             </SectionHeader>
 
-            <ToReview />
+            <ToReview setsQueryResponse={setsQueryResponse} />
           </Section>
 
           <Section>
@@ -51,11 +53,11 @@ const Dashboard: NextPage = () => {
               <TextLarge as="h2">Words To Learn</TextLarge>
             </SectionHeader>
 
-            <ToLearn />
+            <ToLearn setsQueryResponse={setsQueryResponse} />
           </Section>
           <AppFooter />
         </Main>
-        <Profile user={user} />
+        <Profile user={user} setsQueryResponse={setsQueryResponse} />
       </Wrapper>
     </AppLayout>
   );
