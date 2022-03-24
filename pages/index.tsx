@@ -26,10 +26,10 @@ const Home: NextPage = () => {
         <ActionGroup>
           <Button>
             <PlayCircle size={18} />
-            <span>Demo</span>
+            <span>Video Demo</span>
           </Button>
-          <ButtonLink variant="primary" href="/register">
-            Sign Up
+          <ButtonLink variant="primary" href="/api/login">
+            Give a Try
           </ButtonLink>
         </ActionGroup>
       </Cta>
