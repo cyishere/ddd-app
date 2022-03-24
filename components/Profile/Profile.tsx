@@ -70,10 +70,10 @@ const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
           <PlaceholderText>
             <ErrorText>{error.message}</ErrorText>
           </PlaceholderText>
-        ) : learnedSets ? (
+        ) : learnedSets && learnedSets.length > 0 ? (
           learnedSets.map((set) => <LearnedCard key={set?.set_id} set={set!} />)
         ) : (
-          <PlaceholderText>You haven&#39;t started.</PlaceholderText>
+          <PlaceholderText>You haven&#39;t learned yet.</PlaceholderText>
         )}
       </Section>
     </Wrapper>

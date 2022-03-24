@@ -6,6 +6,7 @@ import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
 import WordCard from "./ToReviewCard";
+import { useState } from "react";
 
 interface ToReviewProps {
   setsQueryResponse: QueryResult<
@@ -19,7 +20,8 @@ interface ToReviewProps {
 const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse }) => {
   // get sets
   const { data, loading, error } = setsQueryResponse;
-  // get words by sets
+
+  const [unstarted, setUnstarted] = useState(false);
 
   if (loading) {
     return (
@@ -35,12 +37,16 @@ const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse }) => {
     );
   }
 
+  if (unstarted) {
+    return <PlaceholderText>You haven&#39;t started.</PlaceholderText>;
+  }
+
   return (
     <>
       {data ? (
         <Wrapper>
           {data.sets.map((set) => (
-            <WordCard key={set.id} set={set} />
+            <WordCard key={set.id} set={set} setUnstarted={setUnstarted} />
           ))}
         </Wrapper>
       ) : (
