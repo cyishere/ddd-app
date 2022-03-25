@@ -21,7 +21,8 @@
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/graphql/*": ["graphql/*"]
+      "@/graphql/*": ["graphql/*"],
+      "@/lib/*": ["lib/*"]
     },
     "incremental": true
   },

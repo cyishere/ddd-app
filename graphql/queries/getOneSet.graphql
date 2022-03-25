@@ -1,0 +1,7 @@
+query GetOneSet($slug: String!) {
+  sets(where: { slug: { _eq: $slug } }) {
+    id
+    name
+    slug
+  }
+}
