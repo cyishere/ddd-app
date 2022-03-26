@@ -36,13 +36,12 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href="/dashboard/status" passHref>
-              <NavLink
-                className={pathname === "dashboard/status" ? "active" : ""}
-              >
-                <Activity />
-              </NavLink>
-            </Link>
+            <NavLink
+              as="span"
+              className={pathname !== "dashboard" ? "active" : ""}
+            >
+              <Activity />
+            </NavLink>
           </NavItem>
         </NavList>
       </Nav>
