@@ -42,6 +42,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
   const [words, setWords] = useState<Word[]>([]);
   const [currentWord, setCurrentWord] =
     useState<CurrentWord>(INITIAL_CURRENT_WORD);
+  const [progress, setProgress] = useState(0);
 
   const { data, loading, error } = useGetWordsToLearnQuery({
     variables: { set_id: set.id },
@@ -57,7 +58,12 @@ const Set: NextPage<SetProps> = ({ set }) => {
     setCurrentWord({ word: words[0], index: 0 });
   }, [words]);
 
-  // TODO progressbar
+  const updateProgress = () => {
+    const currentProgress = Math.round(
+      ((currentWord.index + 1) / (words.length - 1 || 1)) * 100
+    );
+    setProgress(currentProgress);
+  };
 
   const setNextWord = () => {
     if (currentWord.index < words.length - 1) {
@@ -65,6 +71,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
         word: words[prev.index! + 1],
         index: prev.index! + 1,
       }));
+      updateProgress();
     } else {
       setFinished(true);
     }
@@ -77,7 +84,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
           <PageHeader>
             <Title>Words To Learn</Title>
             <ProgressWrapper>
-              <ProgressBar value={60} />
+              <ProgressBar value={progress} />
             </ProgressWrapper>
           </PageHeader>
         </Main>
