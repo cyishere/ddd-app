@@ -18,12 +18,12 @@ const Dashboard: NextPage = () => {
   const setsQueryResponse = useGetSetsQuery();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, isLoading]);
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return (
       <PlaceholderPage>
         <p>Loading</p>
