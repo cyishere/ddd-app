@@ -7,6 +7,7 @@
 - [ ] Avatar
 - [x] Make word cards on dashboard work
 
+- [ ] ⛑️ All the card logic are WRONG!!! ⛑️
 - [x] Setup codegen
 - [x] Setup apollo client
 - [x] Update learned cards with data

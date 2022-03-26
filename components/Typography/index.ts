@@ -1,5 +1,4 @@
 export {
-  DisplaySmall,
   TextSmall,
   TextNormal,
   TextMedium,
@@ -8,6 +7,7 @@ export {
   DisplayXlSemiBold,
   DisplayXsMedium,
   DisplaySmSemiBold,
+  DisplaySmMedium,
   TextXlMedium,
   TextLgMedium,
   TextLgNormal,

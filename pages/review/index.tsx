@@ -8,10 +8,10 @@ import { words } from "@/utils/words";
 
 import { AppLayout } from "@/components/Layout";
 import ProgressBar from "@/components/ProgressBar";
-import { DisplaySmall } from "@/components/Typography";
 import { AppFooter } from "@/components/Footer";
 import RadioGroup from "@/components/RadioGroup";
 import { Button, ButtonLink } from "@/components/Button";
+import { DisplaySmMedium } from "@/components/Typography";
 
 const _STYLES = {
   default: {
@@ -65,7 +65,7 @@ const Review: NextPage = () => {
       <Wrapper>
         <Main>
           <PageHeader>
-            <DisplaySmall as="h1">Words To Learn</DisplaySmall>
+            <Title>Words To Learn</Title>
             <ProgressWrapper>
               <ProgressBar value={60} />
             </ProgressWrapper>
@@ -140,6 +140,11 @@ const PageHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const Title = styled.h1`
+  ${DisplaySmMedium}
+  color: var(--clr-gray-900);
 `;
 
 const ProgressWrapper = styled.div`

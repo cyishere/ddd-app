@@ -1,6 +1,6 @@
 import type { GenderTypes } from "./types";
 
-export const getGender = (article: "die" | "das" | "der"): GenderTypes => {
+export const getGender = (article: string): GenderTypes | undefined => {
   switch (article) {
     case "die":
       return "feminine";

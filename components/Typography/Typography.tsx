@@ -1,12 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const DisplaySmall = styled.div`
-  font-size: 1.875rem;
-  line-height: 126%;
-  font-weight: 500;
-  color: var(--clr-gray-900);
-`;
-
 export const TextSmall = styled.div`
   font-size: 0.875rem;
   line-height: 1.43;
@@ -50,6 +43,12 @@ export const DisplaySmSemiBold = css`
   font-size: 1.875rem;
   line-height: 1.27;
   font-weight: 600;
+`;
+
+export const DisplaySmMedium = css`
+  font-size: 1.875rem;
+  line-height: 126%;
+  font-weight: 500;
 `;
 
 export const TextXlMedium = css`

@@ -66,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
           </NavItem>
         </NavList>
         <AvatarContainer>
-          <Avatar imageUrl={user.picture} />
+          {user ? <Avatar imageUrl={user.picture} /> : null}
         </AvatarContainer>
       </Footer>
     </Wrapper>

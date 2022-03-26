@@ -4,24 +4,167 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { gql } from "@apollo/client";
+import { ArrowRight } from "react-feather";
 
-import type { Set } from "@/utils/types";
+import type { Set, Word } from "@/utils/types";
 import { createApolloClient } from "@/lib/apolloClient";
+import { useFetchUser } from "@/hooks/use-fetch-user";
+import { useGetWordsToLearnQuery } from "@/graphql/generated/graphql";
+
+import { AppLayout } from "@/components/Layout";
+import { DisplaySmMedium, TextXlMedium } from "@/components/Typography";
+import ProgressBar from "@/components/ProgressBar";
+import { Button } from "@/components/Button";
+import { WordContent } from "@/components/Words";
+import Loader from "@/components/Loader";
+import { AppFooter } from "@/components/Footer";
 
 interface SetProps extends InferGetStaticPropsType<typeof getStaticProps> {
   set: Set;
 }
 
-const Set: NextPage<SetProps> = ({ set }) => {
-  console.log({ set });
+interface CurrentWord {
+  word: Word;
+  index: number;
+}
 
-  // TODO the page layout
-  // TODO fetch the words in this set
-
-  return <h1>{set.name}</h1>;
+const INITIAL_CURRENT_WORD = {
+  word: { id: 0, article: "", german: "", english: "" },
+  index: 0,
 };
 
+const Set: NextPage<SetProps> = ({ set }) => {
+  const { user } = useFetchUser();
+  const [finished, setFinished] = useState(false);
+  const [words, setWords] = useState<Word[]>([]);
+  const [currentWord, setCurrentWord] =
+    useState<CurrentWord>(INITIAL_CURRENT_WORD);
+
+  const { data, loading, error } = useGetWordsToLearnQuery({
+    variables: { set_id: set.id },
+  });
+
+  useEffect(() => {
+    if (data && data.words) {
+      setWords(data.words);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setCurrentWord({ word: words[0], index: 0 });
+  }, [words]);
+
+  // TODO progressbar
+
+  const setNextWord = () => {
+    if (currentWord.index < words.length - 1) {
+      setCurrentWord((prev) => ({
+        word: words[prev.index! + 1],
+        index: prev.index! + 1,
+      }));
+    } else {
+      setFinished(true);
+    }
+  };
+
+  return (
+    <AppLayout title={set.name} user={user}>
+      <Wrapper>
+        <Main>
+          <PageHeader>
+            <Title>Words To Learn</Title>
+            <ProgressWrapper>
+              <ProgressBar value={60} />
+            </ProgressWrapper>
+          </PageHeader>
+        </Main>
+        <Section>
+          {finished ? (
+            <NotifyText>You&#39;ve finished this set!</NotifyText>
+          ) : loading ? (
+            <Loader />
+          ) : error ? (
+            <ErrorText>{error.message}</ErrorText>
+          ) : (
+            <>
+              <WordContent word={currentWord.word!} />
+              <Button onClick={setNextWord}>
+                Next <ArrowRight />
+              </Button>
+            </>
+          )}
+        </Section>
+        <AppFooter />
+      </Wrapper>
+    </AppLayout>
+  );
+};
+
+// ===============================
+// Styls =========================
+// ===============================
+const Wrapper = styled.div`
+  --spacing: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+`;
+
+const Main = styled.main``;
+
+const PageHeader = styled.header`
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  ${DisplaySmMedium}
+  color: var(--clr-gray-900);
+`;
+
+const ProgressWrapper = styled.div`
+  margin-left: calc(var(--spacing) * 2);
+  flex: 1;
+`;
+
+const Section = styled.section`
+  padding: var(--spacing) calc(var(--spacing) * 2);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing);
+`;
+
+const ErrorText = styled.span`
+  color: var(--clr-red-500);
+`;
+
+const NotifyText = styled.p`
+  ${TextXlMedium}
+  color: var(--clr-gray-900);
+`;
+
+// ===============================
+// Render Functions ==============
+// ===============================
+
+/**
+ * Create Apollo Client
+ */
+const apolloClient = createApolloClient();
+
+/**
+ * Query of getting all the sets
+ */
 const GET_SETS = gql`
   query GetSets {
     sets {
@@ -32,8 +175,10 @@ const GET_SETS = gql`
   }
 `;
 
-const apolloClient = createApolloClient();
-
+/**
+ * Get the dynamic routes
+ * @returns An array with all the slugs of sets
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query({ query: GET_SETS });
 
@@ -51,6 +196,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+/**
+ * Query of getting one set by the slug
+ */
 const GET_ONE_SET = gql`
   query GetOneSet($slug: String!) {
     sets(where: { slug: { _eq: $slug } }) {
@@ -61,6 +209,11 @@ const GET_ONE_SET = gql`
   }
 `;
 
+/**
+ * Get the set data by the given slug
+ * @param context
+ * @returns A set
+ */
 export const getStaticProps: GetStaticProps = async (context) => {
   // @ts-ignore
   const { slug } = context.params;

@@ -8,7 +8,7 @@ import {
   useGetLearnedWordsQuery,
 } from "@/graphql/generated/graphql";
 import Avatar from "../Avatar";
-import { DisplaySmall, TextMedium, TextNormal } from "../Typography";
+import { DisplaySmMedium, TextMedium, TextNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
 import Loader from "../Loader";
 import { LearnedCard } from "../Words";
@@ -57,7 +57,7 @@ const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
         <AvatarContainer>
           <Avatar imageUrl={user.picture} size="large" />
         </AvatarContainer>
-        <DisplaySmall as="h2">{user.nickname}</DisplaySmall>
+        <Name>{user.nickname}</Name>
         <TextNormal as="p">{user.email}</TextNormal>
       </Header>
       <Section>
@@ -103,6 +103,11 @@ const Header = styled.header`
 
 const AvatarContainer = styled.div`
   margin-bottom: 1.5rem;
+`;
+
+const Name = styled.h2`
+  ${DisplaySmMedium}
+  color: var(--clr-gray-900);
 `;
 
 const HeaderBg = styled.div`

@@ -21,12 +21,12 @@ export interface Word {
   article: string;
   german: string;
   english: string;
-  set: {
+  set?: {
     name: string;
     slug: string;
   };
-  unstarted: boolean;
-  learned: boolean;
+  unstarted?: boolean;
+  learned?: boolean;
 }
 
 export interface LearnedSet {

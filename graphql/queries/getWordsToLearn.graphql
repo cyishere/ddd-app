@@ -1,0 +1,8 @@
+query GetWordsToLearn($set_id: Int!) {
+  words(where: { set_id: { _eq: $set_id }, unstarted: { _eq: true } }) {
+    id
+    article
+    german
+    english
+  }
+}
