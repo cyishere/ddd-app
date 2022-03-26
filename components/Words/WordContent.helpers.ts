@@ -1,4 +1,4 @@
-import type { GenderTypes } from "./types";
+import type { GenderTypes } from "@/utils/types";
 
 export const getGender = (article: string): GenderTypes | undefined => {
   switch (article) {

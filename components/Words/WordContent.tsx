@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import styled from "styled-components";
 
 import type { GenderTypes, Word } from "@/utils/types";
-import { getGender } from "@/utils/helpers";
+import { getGender } from "./WordContent.helpers";
 
 interface WordContentProps {
   word: Word;
