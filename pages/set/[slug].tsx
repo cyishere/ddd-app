@@ -7,7 +7,7 @@ import type {
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql } from "@apollo/client";
-import { ArrowRight } from "react-feather";
+import { ArrowRight, RefreshCw } from "react-feather";
 
 import type { Set, Word } from "@/utils/types";
 import { createApolloClient } from "@/lib/apolloClient";
@@ -15,15 +15,24 @@ import { useFetchUser } from "@/hooks/use-fetch-user";
 import {
   useGetMemorizedWordsLazyQuery,
   useGetWordsQuery,
+  useInitMemorizedWordMutation,
 } from "@/graphql/generated/graphql";
 
+import { spinning } from "@/components/Loader/Loader";
 import { AppLayout } from "@/components/Layout";
-import { DisplaySmMedium, TextXlMedium } from "@/components/Typography";
+import {
+  DisplaySmMedium,
+  TextLgMedium,
+  TextMdNormal,
+  TextXlMedium,
+} from "@/components/Typography";
 import ProgressBar from "@/components/ProgressBar";
-import { Button } from "@/components/Button";
+import { Button, ButtonLink } from "@/components/Button";
 import { WordContent } from "@/components/Words";
 import Loader from "@/components/Loader";
 import { AppFooter } from "@/components/Footer";
+import Modal from "@/components/Modal";
+import { DotIcon } from "@/components/Decorations";
 
 interface SetProps extends InferGetStaticPropsType<typeof getStaticProps> {
   set: Set;
@@ -51,6 +60,11 @@ const Set: NextPage<SetProps> = ({ set }) => {
   const [currentWord, setCurrentWord] =
     useState<CurrentWord>(INITIAL_CURRENT_WORD);
   const [progress, setProgress] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const open = () => setShowDialog(true);
+  const close = () => setShowDialog(false);
 
   // Get all words of this set
   const {
@@ -110,8 +124,27 @@ const Set: NextPage<SetProps> = ({ set }) => {
     setProgress(currentProgress);
   };
 
+  // Function for submitting word learning state
+  const [memorizedWord, { loading: submitting, error: submitError }] =
+    useInitMemorizedWordMutation();
+
   // Function for getting the next word & whether this set is finished
-  const setNextWord = () => {
+  const setNextWord = async () => {
+    // if logged in, submit this word to memorized words
+    if (user) {
+      await memorizedWord({
+        variables: {
+          word_id: currentWord.word.id,
+          user_id: user.sub,
+          set_id: set.id!,
+        },
+      });
+
+      if (submitError) {
+        console.log({ submitError: submitError.message });
+      }
+    }
+
     if (currentWord.index < words.length - 1) {
       setCurrentWord((prev) => ({
         word: words[prev.index! + 1],
@@ -122,6 +155,18 @@ const Set: NextPage<SetProps> = ({ set }) => {
       setFinished(true);
     }
   };
+
+  // Update submitting state
+  useEffect(() => {
+    setIsSubmitting(submitting);
+  }, [submitting]);
+
+  // Remind visitor to login
+  useEffect(() => {
+    if (!user && currentWord.index === 3) {
+      open();
+    }
+  }, [currentWord, user]);
 
   return (
     <AppLayout title={set.name} user={user}>
@@ -150,14 +195,36 @@ const Set: NextPage<SetProps> = ({ set }) => {
           ) : (
             <>
               <WordContent word={currentWord.word!} />
-              <Button onClick={setNextWord}>
-                Next <ArrowRight />
+              <Button onClick={setNextWord} disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    Next <Waiting />
+                  </>
+                ) : (
+                  <>
+                    Next <ArrowRight />
+                  </>
+                )}
               </Button>
             </>
           )}
         </Section>
         <AppFooter />
       </Wrapper>
+      <Modal close={close} showDialog={showDialog}>
+        <DotIcon />
+        <ModalTitle>How about login?</ModalTitle>
+        <ModalText>
+          After login, we can store your learning progress and use SRS algorithm
+          to help you.
+        </ModalText>
+        <ModalActions>
+          <Button onClick={close}>Next Time</Button>
+          <ButtonLink variant="primary" href="/api/login">
+            Login
+          </ButtonLink>
+        </ModalActions>
+      </Modal>
     </AppLayout>
   );
 };
@@ -212,6 +279,31 @@ const ErrorText = styled.span`
 const NotifyText = styled.p`
   ${TextXlMedium}
   color: var(--clr-gray-900);
+`;
+
+const Waiting = styled(RefreshCw)`
+  animation: ${spinning} 3s linear infinite;
+`;
+
+const ModalTitle = styled.h2`
+  ${TextLgMedium}
+  color: var(--clr-gray-900);
+  margin-top: 1.25rem;
+`;
+
+const ModalText = styled.p`
+  ${TextMdNormal}
+  color: var(--clr-gray-500);
+  text-align: center;
+  margin-top: 0.5rem;
+`;
+
+const ModalActions = styled.div`
+  width: 100%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 `;
 
 /**
