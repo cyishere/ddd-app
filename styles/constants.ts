@@ -40,6 +40,7 @@ export const COLORS = {
   },
   yellow: {
     50: "48deg 100% 96%",
+    100: "48deg 98% 89%",
     300: "42deg 99% 65%",
   },
 };

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { Check, PlayCircle } from "react-feather";
+import { PlayCircle } from "react-feather";
 
 import Layout from "@/components/Layout";
 import { Button, ButtonLink } from "@/components/Button";
@@ -11,6 +11,7 @@ import {
   TextLgNormal,
   TextXlMedium,
 } from "@/components/Typography";
+import { CheckIcon, DotIcon } from "@/components/Decorations";
 
 const Home: NextPage = () => {
   return (
@@ -44,21 +45,15 @@ const Home: NextPage = () => {
             </FeatureExplain>
             <FeatureDetails>
               <FeatureDetailsItem>
-                <BulletIcon>
-                  <Check size={14} />
-                </BulletIcon>
+                <CheckIcon />
                 <Blue>Blue</Blue> is <Em>feminine</Em>
               </FeatureDetailsItem>
               <FeatureDetailsItem>
-                <BulletIcon>
-                  <Check size={14} />
-                </BulletIcon>
+                <CheckIcon />
                 <Red>Red</Red> is <Em>masculine</Em>
               </FeatureDetailsItem>
               <FeatureDetailsItem>
-                <BulletIcon>
-                  <Check size={14} />
-                </BulletIcon>
+                <CheckIcon />
                 <Green>Green</Green> is <Em>neuter</Em>
               </FeatureDetailsItem>
             </FeatureDetails>
@@ -160,16 +155,6 @@ const FeatureDetailsItem = styled.li`
   gap: 10px;
 `;
 
-const BulletIcon = styled.div`
-  background-color: var(--clr-primary-100);
-  color: var(--clr-primary-500);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-content: center;
-`;
-
 const Red = styled.strong`
   font-weight: 500;
   color: var(--clr-red-500);
@@ -188,15 +173,6 @@ const Green = styled.strong`
 const Em = styled.em`
   font-family: var(--ff-special);
   font-style: italic;
-`;
-
-const DotIcon = styled.div`
-  background-color: var(--clr-primary-100);
-  border: 8px solid var(--clr-primary-50);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
 `;
 
 export default Home;

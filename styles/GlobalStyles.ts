@@ -85,6 +85,7 @@ const GlobalStyles = createGlobalStyle`
     --clr-red-700: hsl(${COLORS.red[700]});
 
     --clr-yellow-50: hsl(${COLORS.yellow[50]});
+    --clr-yellow-100: hsl(${COLORS.yellow[100]});
     --clr-yellow-300: hsl(${COLORS.yellow[300]});
 
     /* font-families */
