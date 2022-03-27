@@ -1,15 +1,17 @@
 import styled, { css } from "styled-components";
 import Link from "next/link";
 
+import type { UserState } from "@/utils/types";
 import Logo from "../Logo";
 import { DisplayXsMedium, TextMdMedium } from "../Typography";
 import { ButtonLink } from "../Button";
-import { useFetchUser } from "hooks/use-fetch-user";
 
-interface HeaderProps {}
+interface HeaderProps {
+  userState: UserState;
+}
 
-const Header: React.FC<HeaderProps> = () => {
-  const { user, isLoading } = useFetchUser();
+const Header: React.FC<HeaderProps> = ({ userState }) => {
+  const { user, isLoading } = userState;
 
   let NavAction;
 

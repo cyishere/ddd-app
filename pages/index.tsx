@@ -14,14 +14,17 @@ import {
 import { CheckIcon, DotIcon } from "@/components/Decorations";
 import { useState } from "react";
 import Modal from "@/components/Modal";
+import { useFetchUser } from "@/hooks/use-fetch-user";
 
 const Home: NextPage = () => {
+  const { user, isLoading } = useFetchUser();
+
   const [showDialog, setShowDialog] = useState(false);
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
 
   return (
-    <Layout title="Home">
+    <Layout title="Home" userState={{ user, isLoading }}>
       <Cta>
         <Greeting>A neat tool helps you learn German nouns.</Greeting>
         <Description>
@@ -33,11 +36,17 @@ const Home: NextPage = () => {
         <ActionGroup>
           <Button onClick={open}>
             <PlayCircle size={18} />
-            <span>Video Demo</span>
+            <span>Video Intro</span>
           </Button>
-          <ButtonLink variant="primary" href="/api/login">
-            Give a Try
-          </ButtonLink>
+          {user ? (
+            <ButtonLink variant="primary" href="/dashboard">
+              Give a Try
+            </ButtonLink>
+          ) : (
+            <ButtonLink variant="primary" href="/set/01">
+              Give a Try
+            </ButtonLink>
+          )}
         </ActionGroup>
       </Cta>
 

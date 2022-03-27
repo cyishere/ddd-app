@@ -14,3 +14,4 @@
 - [x] Update new cards with logic
 - [x] Update review cards with logic
 - [x] Make set(words) page work
+- [x] Get a try? if logged in user -> dashboard; else: /set/01

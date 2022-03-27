@@ -10,6 +10,11 @@ export interface User {
   updated_at: string;
 }
 
+export interface UserState {
+  user: User;
+  isLoading: boolean;
+}
+
 export interface Set {
   id: number;
   name: string;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { User } from "../utils/types";
+import { User, UserState } from "../utils/types";
 
 declare global {
   interface Window {
@@ -40,7 +40,9 @@ export async function fetchUser(
   return json;
 }
 
-export function useFetchUser({ required }: { required?: boolean } = {}) {
+export function useFetchUser({
+  required,
+}: { required?: boolean } = {}): UserState {
   const [isLoading, setIsLoading] = useState(
     () => !(typeof window !== "undefined" && window.__user)
   );
