@@ -53,7 +53,7 @@ const Dashboard: NextPage = () => {
               <TextLarge as="h2">Words To Learn</TextLarge>
             </SectionHeader>
 
-            <ToLearn setsQueryResponse={setsQueryResponse} />
+            <ToLearn setsQueryResponse={setsQueryResponse} user={user} />
           </Section>
           <AppFooter />
         </Main>
