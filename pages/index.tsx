@@ -12,8 +12,14 @@ import {
   TextXlMedium,
 } from "@/components/Typography";
 import { CheckIcon, DotIcon } from "@/components/Decorations";
+import { useState } from "react";
+import Modal from "@/components/Modal";
 
 const Home: NextPage = () => {
+  const [showDialog, setShowDialog] = useState(false);
+  const open = () => setShowDialog(true);
+  const close = () => setShowDialog(false);
+
   return (
     <Layout title="Home">
       <Cta>
@@ -25,7 +31,7 @@ const Home: NextPage = () => {
           to help you to remember them.
         </Description>
         <ActionGroup>
-          <Button>
+          <Button onClick={open}>
             <PlayCircle size={18} />
             <span>Video Demo</span>
           </Button>
@@ -72,6 +78,7 @@ const Home: NextPage = () => {
           </FeatureColumn>
         </FeaturesContainer>
       </Features>
+      <Modal showDialog={showDialog} close={close} />
     </Layout>
   );
 };
