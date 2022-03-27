@@ -39,15 +39,20 @@ const INITIAL_CURRENT_WORD = {
   index: 0,
 };
 
+/**
+ * ================================
+ * The main page component ========
+ * ================================
+ */
 const Set: NextPage<SetProps> = ({ set }) => {
   const { user } = useFetchUser();
-  console.log({ user });
   const [finished, setFinished] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   const [currentWord, setCurrentWord] =
     useState<CurrentWord>(INITIAL_CURRENT_WORD);
   const [progress, setProgress] = useState(0);
 
+  // Get all words of this set
   const {
     data: wordsData,
     loading: wordsLoading,
@@ -56,13 +61,13 @@ const Set: NextPage<SetProps> = ({ set }) => {
     variables: { set_id: set.id! },
   });
 
+  // Define the function that can get the learning words of this set
   const [
     getMemorizedWords,
     { data: memorizedData, loading: memorizedLoading, error: memorizedError },
   ] = useGetMemorizedWordsLazyQuery();
 
-  console.log({ memorizedData: memorizedData?.memorizedWords });
-
+  // Show different words depending on if the user logged in
   useEffect(() => {
     if (!user && wordsData && wordsData.words) {
       setWords(wordsData?.words);
@@ -74,6 +79,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, wordsData]);
 
+  // Put words to state after fetching the words
   useEffect(() => {
     if (
       memorizedData &&
@@ -91,10 +97,12 @@ const Set: NextPage<SetProps> = ({ set }) => {
     }
   }, [memorizedData, wordsData]);
 
+  // Set up the current word object after fetching the words
   useEffect(() => {
     setCurrentWord({ word: words[0], index: 0 });
   }, [words]);
 
+  // Function for updating progress bar
   const updateProgress = () => {
     const currentProgress = Math.round(
       ((currentWord.index + 1) / (words.length - 1 || 1)) * 100
@@ -102,6 +110,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
     setProgress(currentProgress);
   };
 
+  // Function for getting the next word & whether this set is finished
   const setNextWord = () => {
     if (currentWord.index < words.length - 1) {
       setCurrentWord((prev) => ({
@@ -153,9 +162,11 @@ const Set: NextPage<SetProps> = ({ set }) => {
   );
 };
 
-// ===============================
-// Styls =========================
-// ===============================
+/**
+ * ================================
+ * Styles =========================
+ * ================================
+ */
 const Wrapper = styled.div`
   --spacing: 2rem;
   min-height: 100vh;
@@ -203,9 +214,11 @@ const NotifyText = styled.p`
   color: var(--clr-gray-900);
 `;
 
-// ===============================
-// Render Functions ==============
-// ===============================
+/**
+ * ================================
+ * Render functions ===============
+ * ================================
+ */
 
 /**
  * Create Apollo Client
