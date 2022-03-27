@@ -16,22 +16,19 @@ export interface UserState {
 }
 
 export interface Set {
-  id: number;
+  __typename?: "sets" | undefined;
+  id?: number;
   name: string;
   slug: string;
 }
 
 export interface Word {
+  __typename?: "words" | undefined;
   id: number;
   article: string;
   german: string;
   english: string;
-  set?: {
-    name: string;
-    slug: string;
-  };
-  unstarted?: boolean;
-  learned?: boolean;
+  set?: Set | null;
 }
 
 export interface LearnedSet {

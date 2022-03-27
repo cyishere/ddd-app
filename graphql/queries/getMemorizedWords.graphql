@@ -1,0 +1,9 @@
+query GetMemorizedWords($set_id: Int!, $user_id: String!) {
+  memorizedWords(
+    where: { set_id: { _eq: $set_id }, user_id: { _eq: $user_id } }
+  ) {
+    word_id
+    review
+    updated_at
+  }
+}

@@ -12,7 +12,10 @@ import { ArrowRight } from "react-feather";
 import type { Set, Word } from "@/utils/types";
 import { createApolloClient } from "@/lib/apolloClient";
 import { useFetchUser } from "@/hooks/use-fetch-user";
-import { useGetWordsToLearnQuery } from "@/graphql/generated/graphql";
+import {
+  useGetMemorizedWordsLazyQuery,
+  useGetWordsQuery,
+} from "@/graphql/generated/graphql";
 
 import { AppLayout } from "@/components/Layout";
 import { DisplaySmMedium, TextXlMedium } from "@/components/Typography";
@@ -38,21 +41,55 @@ const INITIAL_CURRENT_WORD = {
 
 const Set: NextPage<SetProps> = ({ set }) => {
   const { user } = useFetchUser();
+  console.log({ user });
   const [finished, setFinished] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   const [currentWord, setCurrentWord] =
     useState<CurrentWord>(INITIAL_CURRENT_WORD);
   const [progress, setProgress] = useState(0);
 
-  const { data, loading, error } = useGetWordsToLearnQuery({
-    variables: { set_id: set.id },
+  const {
+    data: wordsData,
+    loading: wordsLoading,
+    error: wordsError,
+  } = useGetWordsQuery({
+    variables: { set_id: set.id! },
   });
 
+  const [
+    getMemorizedWords,
+    { data: memorizedData, loading: memorizedLoading, error: memorizedError },
+  ] = useGetMemorizedWordsLazyQuery();
+
+  console.log({ memorizedData: memorizedData?.memorizedWords });
+
   useEffect(() => {
-    if (data && data.words) {
-      setWords(data.words);
+    if (!user && wordsData && wordsData.words) {
+      setWords(wordsData?.words);
+    } else if (user) {
+      getMemorizedWords({
+        variables: { user_id: user.sub, set_id: set.id! },
+      });
     }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, wordsData]);
+
+  useEffect(() => {
+    if (
+      memorizedData &&
+      memorizedData.memorizedWords &&
+      wordsData &&
+      wordsData.words
+    ) {
+      const memorizedWordIds = memorizedData.memorizedWords.map(
+        (word) => word.word_id
+      );
+      const unStartedWords = wordsData.words.filter(
+        (word) => !memorizedWordIds.includes(word.id)
+      );
+      setWords(unStartedWords);
+    }
+  }, [memorizedData, wordsData]);
 
   useEffect(() => {
     setCurrentWord({ word: words[0], index: 0 });
@@ -91,10 +128,16 @@ const Set: NextPage<SetProps> = ({ set }) => {
         <Section>
           {finished ? (
             <NotifyText>You&#39;ve finished this set!</NotifyText>
-          ) : loading ? (
+          ) : memorizedLoading || wordsLoading ? (
             <Loader />
-          ) : error ? (
-            <ErrorText>{error.message}</ErrorText>
+          ) : memorizedError || wordsError ? (
+            <ErrorText>
+              {memorizedError
+                ? memorizedError.message
+                : wordsError
+                ? wordsError.message
+                : null}
+            </ErrorText>
           ) : (
             <>
               <WordContent word={currentWord.word!} />
