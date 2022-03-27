@@ -20,6 +20,14 @@ export interface Set {
   id?: number;
   name: string;
   slug: string;
+  memorizedWords?: {
+    __typename?: "memorizedWords" | undefined;
+    id: number;
+  }[];
+  words?: {
+    __typename?: "words" | undefined;
+    id: number;
+  }[];
 }
 
 export interface Word {
@@ -35,4 +43,10 @@ export interface LearnedSet {
   set_id: number;
   set_name: string;
   words_length: number;
+}
+
+export interface MemorizedWord {
+  __typename?: "memorizedWords" | undefined;
+  word_id: number;
+  set_id: number;
 }

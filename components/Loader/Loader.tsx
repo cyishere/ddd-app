@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Loader as Loading } from "react-feather";
 
-const spinning = keyframes`
+export const spinning = keyframes`
   0% {
     transform: rotate(0deg);
   }

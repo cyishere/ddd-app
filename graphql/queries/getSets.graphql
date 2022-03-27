@@ -3,5 +3,11 @@ query GetSets {
     id
     name
     slug
+    memorizedWords {
+      id
+    }
+    words {
+      id
+    }
   }
 }

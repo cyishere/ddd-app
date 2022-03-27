@@ -1,0 +1,7 @@
+mutation InitMemorizedWord($word_id: Int!, $user_id: String!, $set_id: Int!) {
+  insert_memorizedWords_one(
+    object: { word_id: $word_id, user_id: $user_id, set_id: $set_id }
+  ) {
+    id
+  }
+}

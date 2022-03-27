@@ -1,17 +1,18 @@
 import type { QueryResult } from "@apollo/client";
 import styled from "styled-components";
 
-import type { LearnedSet, User } from "@/utils/types";
+import type { Set, User } from "@/utils/types";
 import {
   Exact,
   GetSetsQuery,
-  useGetLearnedWordsQuery,
+  useGetLearnedWordsByUserLazyQuery,
 } from "@/graphql/generated/graphql";
 import Avatar from "../Avatar";
 import { DisplaySmMedium, TextMedium, TextNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
 import Loader from "../Loader";
 import { LearnedCard } from "../Words";
+import { useEffect, useState } from "react";
 
 interface ProfileProps {
   user: User;
@@ -24,31 +25,45 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
-  const { data: setData, loading, error } = setsQueryResponse;
+  const [sets, setSets] = useState<Set[]>([]);
+  const {
+    data: setsData,
+    loading: setsLoading,
+    error: setsError,
+  } = setsQueryResponse;
 
-  // find all learned words
-  const { data: wordData } = useGetLearnedWordsQuery();
+  const [
+    getLearedWords,
+    { data: learnedWords, loading: learnedLoading, error: learnedError },
+  ] = useGetLearnedWordsByUserLazyQuery();
 
-  let unfilteredLearnedSets: Array<LearnedSet | undefined>;
-  let learnedSets: LearnedSet[] = [];
-  // group them by set
-  if (setData && wordData) {
-    unfilteredLearnedSets = setData.sets.map((set) => {
-      const wordsInThisSet = wordData?.words.filter((word) => {
-        return word.set_id === set.id;
+  useEffect(() => {
+    if (user) {
+      getLearedWords({ variables: { user_id: user.sub } });
+    }
+  }, [getLearedWords, user]);
+
+  useEffect(() => {
+    if (
+      setsData &&
+      setsData.sets &&
+      learnedWords &&
+      learnedWords.memorizedWords
+    ) {
+      const iteratedSets = setsData.sets.map((set) => {
+        const learnedWordsInThisSet = learnedWords.memorizedWords.filter(
+          (word) => word.set_id === set.id
+        );
+
+        // if learned all words of this set
+        if (learnedWordsInThisSet.length === set.words.length) {
+          return set;
+        }
       });
 
-      if (wordsInThisSet.length > 0) {
-        return {
-          set_id: set.id,
-          set_name: set.name,
-          words_length: wordsInThisSet.length,
-        };
-      }
-    });
-
-    learnedSets = unfilteredLearnedSets.filter((set) => set) as LearnedSet[];
-  }
+      setSets(iteratedSets.filter((set) => set !== undefined) as Set[]);
+    }
+  }, [learnedWords, setsData]);
 
   return (
     <Wrapper>
@@ -62,16 +77,22 @@ const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
       </Header>
       <Section>
         <TextMedium as="h2">Words Learned</TextMedium>
-        {loading ? (
+        {setsLoading || learnedLoading ? (
           <PlaceholderText>
             <Loader size={48} />
           </PlaceholderText>
-        ) : error ? (
+        ) : setsError || learnedError ? (
           <PlaceholderText>
-            <ErrorText>{error.message}</ErrorText>
+            <ErrorText>
+              {setsError
+                ? setsError.message
+                : learnedError
+                ? learnedError.message
+                : null}
+            </ErrorText>
           </PlaceholderText>
-        ) : learnedSets && learnedSets.length > 0 ? (
-          learnedSets.map((set) => <LearnedCard key={set?.set_id} set={set!} />)
+        ) : sets.length > 0 ? (
+          sets.map((set) => <LearnedCard key={set.id!} set={set} />)
         ) : (
           <PlaceholderText>You haven&#39;t learned yet.</PlaceholderText>
         )}
