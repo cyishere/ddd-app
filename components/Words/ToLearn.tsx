@@ -1,7 +1,6 @@
 import type { QueryResult } from "@apollo/client";
 import styled from "styled-components";
 
-import type { User } from "@/utils/types";
 import type { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
@@ -9,7 +8,7 @@ import { CardWrapper } from "./styles";
 import WordCard from "./ToLearnCard";
 
 interface ToLearnProps {
-  user: User;
+  userId: string;
   setsQueryResponse: QueryResult<
     GetSetsQuery,
     Exact<{
@@ -18,7 +17,7 @@ interface ToLearnProps {
   >;
 }
 
-const ToLearn: React.FC<ToLearnProps> = ({ setsQueryResponse, user }) => {
+const ToLearn: React.FC<ToLearnProps> = ({ setsQueryResponse, userId }) => {
   // get set array
   const { data, loading, error } = setsQueryResponse;
 
@@ -41,7 +40,7 @@ const ToLearn: React.FC<ToLearnProps> = ({ setsQueryResponse, user }) => {
       {data ? (
         <Wrapper>
           {data.sets.map((set) => (
-            <WordCard key={set.id} set={set} userId={user.sub} />
+            <WordCard key={set.id} set={set} userId={userId} />
           ))}
         </Wrapper>
       ) : (
