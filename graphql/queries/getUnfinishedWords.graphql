@@ -1,0 +1,11 @@
+query GetUnfinishedWords($user_id: String!, $set_id: Int!) {
+  memorizedWords(
+    where: {
+      user_id: { _eq: $user_id }
+      set_id: { _eq: $set_id }
+      review: { _neq: 100 }
+    }
+  ) {
+    ...MemorizedResponse
+  }
+}

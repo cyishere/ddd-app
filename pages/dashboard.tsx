@@ -45,7 +45,7 @@ const Dashboard: NextPage = () => {
               <TextLarge as="h2">Words To Review</TextLarge>
             </SectionHeader>
 
-            <ToReview setsQueryResponse={setsQueryResponse} />
+            <ToReview setsQueryResponse={setsQueryResponse} userId={user.sub} />
           </Section>
 
           <Section>
@@ -53,7 +53,7 @@ const Dashboard: NextPage = () => {
               <TextLarge as="h2">Words To Learn</TextLarge>
             </SectionHeader>
 
-            <ToLearn setsQueryResponse={setsQueryResponse} user={user} />
+            <ToLearn setsQueryResponse={setsQueryResponse} userId={user.sub} />
           </Section>
           <AppFooter />
         </Main>

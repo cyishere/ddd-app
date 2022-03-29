@@ -1,4 +1,5 @@
 import type { QueryResult } from "@apollo/client";
+import { useRef } from "react";
 import styled from "styled-components";
 
 import { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
@@ -6,9 +7,9 @@ import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
 import WordCard from "./ToReviewCard";
-import { useState } from "react";
 
 interface ToReviewProps {
+  userId: string;
   setsQueryResponse: QueryResult<
     GetSetsQuery,
     Exact<{
@@ -17,11 +18,9 @@ interface ToReviewProps {
   >;
 }
 
-const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse }) => {
-  // get sets
-  const { data, loading, error } = setsQueryResponse;
-
-  const [unstarted, setUnstarted] = useState(false);
+const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse, userId }) => {
+  const { data: setsData, loading, error } = setsQueryResponse;
+  const setsStarted = useRef<boolean[]>([]);
 
   if (loading) {
     return (
@@ -37,18 +36,21 @@ const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse }) => {
     );
   }
 
-  if (unstarted) {
-    return <PlaceholderText>You haven&#39;t started.</PlaceholderText>;
-  }
-
   return (
     <>
-      {data ? (
-        <Wrapper>
-          {data.sets.map((set) => (
-            <WordCard key={set.id} set={set} setUnstarted={setUnstarted} />
-          ))}
-        </Wrapper>
+      {setsStarted.current.every((setStarted) => setStarted === true) ? (
+        setsData && userId ? (
+          <Wrapper>
+            {setsData.sets.map((set) => (
+              <WordCard
+                key={set.id}
+                set={set}
+                setsStarted={setsStarted}
+                userId={userId}
+              />
+            ))}
+          </Wrapper>
+        ) : null
       ) : (
         <PlaceholderText>You haven&#39;t started.</PlaceholderText>
       )}

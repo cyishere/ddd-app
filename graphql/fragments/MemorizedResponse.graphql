@@ -1,0 +1,10 @@
+fragment MemorizedResponse on memorizedWords {
+  word_id
+  review
+  updated_at
+  word {
+    article
+    german
+    english
+  }
+}
