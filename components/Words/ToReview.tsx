@@ -36,21 +36,21 @@ const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse, userId }) => {
     );
   }
 
+  console.log({ setsStarted: setsStarted.current.every((x) => x) });
+
   return (
     <>
-      {setsStarted.current.every((setStarted) => setStarted === true) ? (
-        setsData && userId ? (
-          <Wrapper>
-            {setsData.sets.map((set) => (
-              <WordCard
-                key={set.id}
-                set={set}
-                setsStarted={setsStarted}
-                userId={userId}
-              />
-            ))}
-          </Wrapper>
-        ) : null
+      {setsStarted.current.every((x) => x) && setsData && userId ? (
+        <Wrapper>
+          {setsData.sets.map((set) => (
+            <WordCard
+              key={set.id}
+              set={set}
+              setsStarted={setsStarted}
+              userId={userId}
+            />
+          ))}
+        </Wrapper>
       ) : (
         <PlaceholderText>You haven&#39;t started.</PlaceholderText>
       )}
