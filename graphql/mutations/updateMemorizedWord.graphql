@@ -1,0 +1,12 @@
+mutation UpdateMemorizedWord(
+  $id: Int!
+  $available_at: timestamptz!
+  $review: Int!
+) {
+  update_memorizedWords_by_pk(
+    pk_columns: { id: $id }
+    _set: { available_at: $available_at, review: $review }
+  ) {
+    id
+  }
+}

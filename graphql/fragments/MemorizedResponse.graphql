@@ -1,8 +1,10 @@
 fragment MemorizedResponse on memorizedWords {
+  id
   word_id
   review
-  updated_at
+  available_at
   word {
+    id
     article
     german
     english

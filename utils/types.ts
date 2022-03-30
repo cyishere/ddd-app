@@ -1,4 +1,5 @@
 export type GenderTypes = "feminine" | "neuter" | "masculine";
+export type ArticleTypes = "die" | "das" | "der";
 
 export interface User {
   email: string;
@@ -47,6 +48,23 @@ export interface LearnedSet {
 
 export interface MemorizedWord {
   __typename?: "memorizedWords" | undefined;
+  id: number;
   word_id: number;
   set_id: number;
+  review?: number | null | undefined;
+  available_at: any;
+  word: {
+    __typename?: "words" | undefined;
+    id: number;
+    article: string;
+    german: string;
+    english: string;
+  };
+}
+
+export interface CurrentWord {
+  word: Word;
+  index: number;
+  memorized_id?: number;
+  review?: number;
 }

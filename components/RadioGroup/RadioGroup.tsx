@@ -1,9 +1,24 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  CSSProperties,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 import styled from "styled-components";
+
+import { ArticleTypes } from "@/utils/types";
+import { DisplayXsMedium } from "../Typography";
 
 import VisuallyHidden from "../VisuallyHidden";
 
 interface RadioGroupProps {
+  article: ArticleTypes;
+  articleState: {
+    checked: boolean;
+    value: string;
+  };
   reviewState: null | "success" | "error";
   setArticleState: Dispatch<
     SetStateAction<{
@@ -14,9 +29,21 @@ interface RadioGroupProps {
 }
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
+  article,
+  articleState,
   setArticleState,
   reviewState,
 }) => {
+  const inputsRef = useRef<HTMLInputElement[]>([]);
+
+  useEffect(() => {
+    if (!articleState.value) {
+      inputsRef.current.forEach((input) => {
+        input.checked = false;
+      });
+    }
+  }, [articleState.value]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setArticleState({
       checked: true,
@@ -29,9 +56,18 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
       <legend>
         <VisuallyHidden>Choose the article</VisuallyHidden>
       </legend>
-      <Container>
+      {reviewState ? <Article>{article}</Article> : null}
+
+      <Container
+        style={
+          {
+            "--visibility": reviewState ? "hidden" : "visible",
+          } as CSSProperties
+        }
+      >
         <RadioWrapper>
           <Input
+            ref={(element: HTMLInputElement) => inputsRef.current.push(element)}
             type="radio"
             name="article"
             id="radioF"
@@ -42,6 +78,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         </RadioWrapper>
         <RadioWrapper>
           <Input
+            ref={(element: HTMLInputElement) => inputsRef.current.push(element)}
             type="radio"
             name="article"
             id="radioN"
@@ -52,6 +89,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         </RadioWrapper>
         <RadioWrapper>
           <Input
+            ref={(element: HTMLInputElement) => inputsRef.current.push(element)}
             type="radio"
             name="article"
             id="radioM"
@@ -73,12 +111,23 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
+const Article = styled.span`
+  ${DisplayXsMedium}
+  color: var(--secondaryColor);
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const RadioWrapper = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   border-radius: 8px;
   width: fit-content;
+  box-shadow: var(--bs-sm);
   position: relative;
+  visibility: var(--visibility);
 `;
 
 const Label = styled.label`
@@ -111,6 +160,8 @@ const Input = styled.input`
 `;
 
 const FieldSet = styled.fieldset`
+  position: relative;
+
   &:disabled ${Input} {
     cursor: not-allowed;
   }

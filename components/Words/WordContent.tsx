@@ -2,41 +2,11 @@ import type { CSSProperties } from "react";
 import styled from "styled-components";
 
 import type { GenderTypes, Word } from "@/utils/types";
-import { getGender } from "./WordContent.helpers";
+import { getGender, _STYLES } from "./WordContent.helpers";
 
 interface WordContentProps {
   word: Word;
 }
-
-interface StylesTypes {
-  default: Record<string, string>;
-  feminine: Record<string, string>;
-  neuter: Record<string, string>;
-  masculine: Record<string, string>;
-}
-
-const _STYLES: StylesTypes = {
-  default: {
-    "--bgColor": "var(--clr-gray-50)",
-    "--primaryColor": "var(--clr-gray-900)",
-    "--secondaryColor": "var(--clr-gray-700)",
-  },
-  feminine: {
-    "--bgColor": "var(--clr-blue-50)",
-    "--primaryColor": "var(--clr-blue-900)",
-    "--secondaryColor": "var(--clr-blue-700)",
-  },
-  neuter: {
-    "--bgColor": "var(--clr-green-50)",
-    "--primaryColor": "var(--clr-green-900)",
-    "--secondaryColor": "var(--clr-green-700)",
-  },
-  masculine: {
-    "--bgColor": "var(--clr-red-50)",
-    "--primaryColor": "var(--clr-red-700)",
-    "--secondaryColor": "var(--clr-red-500)",
-  },
-};
 
 const WordContent: React.FC<WordContentProps> = ({ word }) => {
   let gender: GenderTypes | "default" = "default";

@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { gql } from "@apollo/client";
 import { ArrowRight, RefreshCw } from "react-feather";
 
-import type { Set, Word } from "@/utils/types";
+import type { CurrentWord, Set, Word } from "@/utils/types";
 import { createApolloClient } from "@/lib/apolloClient";
 import { useFetchUser } from "@/hooks/use-fetch-user";
 import {
@@ -17,6 +17,7 @@ import {
   useGetWordsQuery,
   useInitMemorizedWordMutation,
 } from "@/graphql/generated/graphql";
+import { INITIAL_CURRENT_WORD, updateProgress } from "@/utils/helpers";
 
 import { spinning } from "@/components/Loader/Loader";
 import { AppLayout } from "@/components/Layout";
@@ -37,16 +38,6 @@ import { DotIcon } from "@/components/Decorations";
 interface SetProps extends InferGetStaticPropsType<typeof getStaticProps> {
   set: Set;
 }
-
-interface CurrentWord {
-  word: Word;
-  index: number;
-}
-
-const INITIAL_CURRENT_WORD = {
-  word: { id: 0, article: "", german: "", english: "" },
-  index: 0,
-};
 
 /**
  * ================================
@@ -75,6 +66,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
     variables: { set_id: set.id! },
   });
 
+  // TODO refactor
   // Define the function that can get the learning words of this set
   const [
     getMemorizedWords,
@@ -116,14 +108,6 @@ const Set: NextPage<SetProps> = ({ set }) => {
     setCurrentWord({ word: words[0], index: 0 });
   }, [words]);
 
-  // Function for updating progress bar
-  const updateProgress = () => {
-    const currentProgress = Math.round(
-      ((currentWord.index + 1) / (words.length - 1 || 1)) * 100
-    );
-    setProgress(currentProgress);
-  };
-
   // Function for submitting word learning state
   const [memorizedWord, { loading: submitting, error: submitError }] =
     useInitMemorizedWordMutation();
@@ -150,7 +134,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
         word: words[prev.index! + 1],
         index: prev.index! + 1,
       }));
-      updateProgress();
+      updateProgress(currentWord.index, words.length, setProgress);
     } else {
       setFinished(true);
     }
