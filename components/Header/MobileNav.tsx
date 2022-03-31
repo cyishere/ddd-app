@@ -63,9 +63,6 @@ const MobileNav: React.FC = () => {
             <Link href="/" passHref>
               <TextLink>Home</TextLink>
             </Link>
-            <Link href="/about" passHref>
-              <TextLink>How&#39;s this work?</TextLink>
-            </Link>
           </MobileNavLink>
           {NavAction}
         </MobileNavContent>

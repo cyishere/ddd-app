@@ -52,9 +52,6 @@ const Header: React.FC = () => {
             <Link href="/" passHref>
               <TextLink>Home</TextLink>
             </Link>
-            <Link href="/about" passHref>
-              <TextLink>How&#39;s this work?</TextLink>
-            </Link>
           </Left>
           {NavAction}
         </Nav>

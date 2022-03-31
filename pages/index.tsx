@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-import { PlayCircle } from "react-feather";
 
 import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
 
 import Layout from "@/components/Layout";
-import { Button, ButtonLink } from "@/components/Button";
+import { ButtonLink } from "@/components/Button";
 import {
   DisplaySmSemiBold,
   DisplayXlSemiBold,
@@ -16,14 +15,9 @@ import {
   TextXlMedium,
 } from "@/components/Typography";
 import { CheckIcon, DotIcon } from "@/components/Decorations";
-import Modal from "@/components/Modal";
 
 const Home: NextPage = () => {
   const { user } = useContext(UserContext);
-
-  const [showDialog, setShowDialog] = useState(false);
-  const open = () => setShowDialog(true);
-  const close = () => setShowDialog(false);
 
   return (
     <Layout title="Home">
@@ -36,10 +30,6 @@ const Home: NextPage = () => {
           to help you to remember them.
         </Description>
         <ActionGroup>
-          <Button onClick={open}>
-            <PlayCircle size={18} />
-            <span>Video Intro</span>
-          </Button>
           {user ? (
             <ButtonLink variant="primary" href="/dashboard">
               Give a Try
@@ -89,9 +79,6 @@ const Home: NextPage = () => {
           </FeatureColumn>
         </FeaturesContainer>
       </Features>
-      <Modal showDialog={showDialog} close={close}>
-        Video
-      </Modal>
     </Layout>
   );
 };
