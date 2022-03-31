@@ -1,36 +1,26 @@
-import type { QueryResult } from "@apollo/client";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import type { Set, User } from "@/utils/types";
-import {
-  Exact,
-  GetSetsQuery,
-  useGetLearnedWordsByUserLazyQuery,
-} from "@/graphql/generated/graphql";
+import SetsContext from "@/hooks/sets-context";
+import { useGetLearnedWordsByUserLazyQuery } from "@/graphql/generated/graphql";
 import Avatar from "../Avatar";
 import { DisplaySmMedium, TextMedium, TextNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
 import Loader from "../Loader";
 import { LearnedCard } from "../Words";
-import { useEffect, useState } from "react";
 
 interface ProfileProps {
   user: User;
-  setsQueryResponse: QueryResult<
-    GetSetsQuery,
-    Exact<{
-      [key: string]: never;
-    }>
-  >;
 }
 
-const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
+const Profile: React.FC<ProfileProps> = ({ user }) => {
   const [sets, setSets] = useState<Set[]>([]);
   const {
     data: setsData,
     loading: setsLoading,
     error: setsError,
-  } = setsQueryResponse;
+  } = useContext(SetsContext);
 
   const [
     getLearedWords,

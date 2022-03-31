@@ -1,7 +1,7 @@
-import type { QueryResult } from "@apollo/client";
+import { useContext } from "react";
 import styled from "styled-components";
 
-import type { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
+import SetsContext from "@/hooks/sets-context";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
@@ -9,17 +9,11 @@ import WordCard from "./ToLearnCard";
 
 interface ToLearnProps {
   userId: string;
-  setsQueryResponse: QueryResult<
-    GetSetsQuery,
-    Exact<{
-      [key: string]: never;
-    }>
-  >;
 }
 
-const ToLearn: React.FC<ToLearnProps> = ({ setsQueryResponse, userId }) => {
+const ToLearn: React.FC<ToLearnProps> = ({ userId }) => {
   // get set array
-  const { data, loading, error } = setsQueryResponse;
+  const { data, loading, error } = useContext(SetsContext);
 
   if (loading) {
     return (

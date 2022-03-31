@@ -1,25 +1,18 @@
-import type { QueryResult } from "@apollo/client";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styled from "styled-components";
 
-import { Exact, GetSetsQuery } from "@/graphql/generated/graphql";
 import Loader from "../Loader";
 import { PlaceholderText } from "../Placeholder";
 import { CardWrapper } from "./styles";
 import WordCard from "./ToReviewCard";
+import SetsContext from "@/hooks/sets-context";
 
 interface ToReviewProps {
   userId: string;
-  setsQueryResponse: QueryResult<
-    GetSetsQuery,
-    Exact<{
-      [key: string]: never;
-    }>
-  >;
 }
 
-const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse, userId }) => {
-  const { data: setsData, loading, error } = setsQueryResponse;
+const ToReview: React.FC<ToReviewProps> = ({ userId }) => {
+  const { data: setsData, loading, error } = useContext(SetsContext);
   const setsStarted = useRef<boolean[]>([]);
 
   if (loading) {

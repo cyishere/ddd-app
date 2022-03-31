@@ -12,10 +12,11 @@ import { AppFooter } from "@/components/Footer";
 import { PlaceholderPage } from "@/components/Placeholder";
 import { ToLearn, ToReview } from "@/components/Words";
 import { useGetSetsQuery } from "@/graphql/generated/graphql";
+import SetsContext from "@/hooks/sets-context";
 
 const Dashboard: NextPage = () => {
   const { user, userIsLoading: isLoading } = useContext(UserContext);
-  const setsQueryResponse = useGetSetsQuery();
+  const { data, loading, error } = useGetSetsQuery();
 
   useEffect(() => {
     if (!user && !isLoading) {
@@ -33,32 +34,34 @@ const Dashboard: NextPage = () => {
 
   return (
     <AppLayout title="Dashboard">
-      <Wrapper>
-        <Main>
-          <AppHeader
-            title="Dashboard"
-            subTitle={`Welcome back, ${user.nickname}!`}
-          />
+      <SetsContext.Provider value={{ data, loading, error }}>
+        <Wrapper>
+          <Main>
+            <AppHeader
+              title="Dashboard"
+              subTitle={`Welcome back, ${user.nickname}!`}
+            />
 
-          <Section>
-            <SectionHeader>
-              <TextLarge as="h2">Words To Review</TextLarge>
-            </SectionHeader>
+            <Section>
+              <SectionHeader>
+                <TextLarge as="h2">Words To Review</TextLarge>
+              </SectionHeader>
 
-            <ToReview setsQueryResponse={setsQueryResponse} userId={user.sub} />
-          </Section>
+              <ToReview userId={user.sub} />
+            </Section>
 
-          <Section>
-            <SectionHeader>
-              <TextLarge as="h2">Words To Learn</TextLarge>
-            </SectionHeader>
+            <Section>
+              <SectionHeader>
+                <TextLarge as="h2">Words To Learn</TextLarge>
+              </SectionHeader>
 
-            <ToLearn setsQueryResponse={setsQueryResponse} userId={user.sub} />
-          </Section>
-          <AppFooter />
-        </Main>
-        <Profile user={user} setsQueryResponse={setsQueryResponse} />
-      </Wrapper>
+              <ToLearn userId={user.sub} />
+            </Section>
+            <AppFooter />
+          </Main>
+          <Profile user={user} />
+        </Wrapper>
+      </SetsContext.Provider>
     </AppLayout>
   );
 };
