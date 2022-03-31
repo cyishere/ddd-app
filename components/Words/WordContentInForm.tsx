@@ -6,7 +6,7 @@ import {
   useEffect,
 } from "react";
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Check, RefreshCw, X } from "react-feather";
 
 import type { ArticleTypes, CurrentWord } from "@/utils/types";
@@ -249,6 +249,36 @@ const ButtonWrapperChecked = styled(ButtonWrapper)`
   padding-top: 0;
 `;
 
+const shake = keyframes`
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+`;
+
+const zoomIn = keyframes`
+  0% {
+    transform: scale(0);
+  }
+  90% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 const Icon = styled.div`
   color: var(--clr-white);
   background-color: var(--iconBg);
@@ -261,10 +291,12 @@ const Icon = styled.div`
 
 const SuccessIcon = styled(Icon)`
   --iconBg: var(--clr-yellow-300);
+  animation: ${zoomIn} 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 `;
 
 const ErrorIcon = styled(Icon)`
   --iconBg: var(--clr-gray-500);
+  animation: ${shake} 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 `;
 
 const Waiting = styled(RefreshCw)`
