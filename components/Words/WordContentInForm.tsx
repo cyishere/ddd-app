@@ -1,4 +1,10 @@
-import type { CSSProperties, Dispatch, FormEvent, SetStateAction } from "react";
+import {
+  CSSProperties,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+} from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { Check, RefreshCw, X } from "react-feather";
@@ -119,7 +125,9 @@ const WordContentInForm: React.FC<WordContentInFormProps> = ({
         available_at: availableTime,
       },
     });
+  };
 
+  useEffect(() => {
     // get the next word
     if (updateResult && updateResult.update_memorizedWords_by_pk) {
       setArticleState(INITIAL_ARTICLE_STATE);
@@ -127,7 +135,8 @@ const WordContentInForm: React.FC<WordContentInFormProps> = ({
       setContainerStyles(CONTAINER_STYLES["default"]);
       setNext(true);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateResult]);
 
   return (
     <Form onSubmit={handleSubmit}>

@@ -34,12 +34,14 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   setArticleState,
   reviewState,
 }) => {
-  const inputsRef = useRef<HTMLInputElement[]>([]);
+  const inputsRef = useRef<HTMLInputElement[]>(new Array());
 
   useEffect(() => {
     if (!articleState.value) {
       inputsRef.current.forEach((input) => {
-        input.checked = false;
+        if (input) {
+          input.checked = false;
+        }
       });
     }
   }, [articleState.value]);
