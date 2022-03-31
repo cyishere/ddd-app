@@ -36,8 +36,6 @@ const ToReview: React.FC<ToReviewProps> = ({ setsQueryResponse, userId }) => {
     );
   }
 
-  console.log({ setsStarted: setsStarted.current.every((x) => x) });
-
   return (
     <>
       {setsStarted.current.every((x) => x) && setsData && userId ? (
