@@ -94,7 +94,9 @@ const Profile: React.FC<ProfileProps> = ({ user, setsQueryResponse }) => {
         ) : sets.length > 0 ? (
           sets.map((set) => <LearnedCard key={set.id!} set={set} />)
         ) : (
-          <PlaceholderText>You haven&#39;t learned yet.</PlaceholderText>
+          <PlaceholderText>
+            You haven&#39;t learned any word yet.
+          </PlaceholderText>
         )}
       </Section>
     </Wrapper>
