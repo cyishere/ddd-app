@@ -1,17 +1,14 @@
+import { useContext } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 
-import type { UserState } from "@/utils/types";
+import UserContext from "@/hooks/user-context";
 import Logo from "../Logo";
 import { DisplayXsMedium, TextMdMedium } from "../Typography";
 import { ButtonLink } from "../Button";
 
-interface HeaderProps {
-  userState: UserState;
-}
-
-const Header: React.FC<HeaderProps> = ({ userState }) => {
-  const { user, isLoading } = userState;
+const Header: React.FC = () => {
+  const { user, userIsLoading: isLoading } = useContext(UserContext);
 
   let NavAction;
 

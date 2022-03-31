@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import router from "next/router";
 
-import { useFetchUser } from "@/hooks/use-fetch-user";
+import UserContext from "@/hooks/user-context";
 import { AppLayout } from "@/components/Layout";
 import { AppHeader } from "@/components/Header";
 import { TextLarge } from "@/components/Typography";
@@ -14,7 +14,7 @@ import { ToLearn, ToReview } from "@/components/Words";
 import { useGetSetsQuery } from "@/graphql/generated/graphql";
 
 const Dashboard: NextPage = () => {
-  const { user, isLoading } = useFetchUser();
+  const { user, userIsLoading: isLoading } = useContext(UserContext);
   const setsQueryResponse = useGetSetsQuery();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Dashboard: NextPage = () => {
   }
 
   return (
-    <AppLayout title="Dashboard" user={user}>
+    <AppLayout title="Dashboard">
       <Wrapper>
         <Main>
           <AppHeader

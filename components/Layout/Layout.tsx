@@ -1,20 +1,18 @@
 import styled from "styled-components";
 
-import type { UserState } from "@/utils/types";
 import SEO from "../SEO";
 import Header from "../Header";
 import Footer from "../Footer";
 
 interface LayoutProps {
   title: string;
-  userState: UserState;
 }
 
-const Layout: React.FC<LayoutProps> = ({ title, userState, children }) => {
+const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   return (
     <Wrapper>
       <SEO title={title} />
-      <Header userState={userState} />
+      <Header />
       {children}
       <Footer />
     </Wrapper>

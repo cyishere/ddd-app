@@ -1,18 +1,16 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Home, Activity, Settings, LogOut } from "react-feather";
 
-import type { User } from "@/utils/types";
+import UserContext from "@/hooks/user-context";
 import Logo from "../Logo";
 import VisuallyHidden from "../VisuallyHidden";
 import Avatar from "../Avatar";
 
-interface SidebarProps {
-  user: User;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ user }) => {
+const Sidebar: React.FC = () => {
+  const { user } = useContext(UserContext);
   const pathname = useRouter().pathname.slice(1);
 
   return (

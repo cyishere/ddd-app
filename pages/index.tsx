@@ -1,7 +1,9 @@
 import type { NextPage } from "next";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { PlayCircle } from "react-feather";
 
+import UserContext from "@/hooks/user-context";
 import Layout from "@/components/Layout";
 import { Button, ButtonLink } from "@/components/Button";
 import {
@@ -12,19 +14,17 @@ import {
   TextXlMedium,
 } from "@/components/Typography";
 import { CheckIcon, DotIcon } from "@/components/Decorations";
-import { useState } from "react";
 import Modal from "@/components/Modal";
-import { useFetchUser } from "@/hooks/use-fetch-user";
 
 const Home: NextPage = () => {
-  const { user, isLoading } = useFetchUser();
+  const { user } = useContext(UserContext);
 
   const [showDialog, setShowDialog] = useState(false);
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
 
   return (
-    <Layout title="Home" userState={{ user, isLoading }}>
+    <Layout title="Home">
       <Cta>
         <Greeting>A neat tool helps you learn German nouns.</Greeting>
         <Description>
@@ -87,7 +87,9 @@ const Home: NextPage = () => {
           </FeatureColumn>
         </FeaturesContainer>
       </Features>
-      <Modal showDialog={showDialog} close={close} />
+      <Modal showDialog={showDialog} close={close}>
+        Video
+      </Modal>
     </Layout>
   );
 };
