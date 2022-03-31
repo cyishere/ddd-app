@@ -1,17 +1,1 @@
-- [x] Auth0
-- [x] Header buttons:
-  - Un-logged in: Login / Sign Up
-  - Logged in: Greeting, Dashboard, Logout
-- [ ] After login, go to dashboard
-- [ ] User context store user info
-- [ ] Avatar
-- [x] Make word cards on dashboard work
-
-- [ ] ⛑️ All the card logic are WRONG!!! ⛑️
-- [x] Setup codegen
-- [x] Setup apollo client
-- [x] Update learned cards with data
-- [x] Update new cards with logic
-- [x] Update review cards with logic
-- [x] Make set(words) page work
-- [x] Get a try? if logged in user -> dashboard; else: /set/01
+# DDD App
