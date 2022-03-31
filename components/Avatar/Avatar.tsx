@@ -31,7 +31,13 @@ const Avatar: React.FC<AvatarProps> = ({ size = "normal", imageUrl }) => {
 
   return (
     <Wrapper style={styles as CSSProperties}>
-      <Image src={imageUrl} alt="" width={imageSize} height={imageSize} />
+      <Image
+        src={imageUrl}
+        alt=""
+        width={imageSize}
+        height={imageSize}
+        unoptimized
+      />
     </Wrapper>
   );
 };
