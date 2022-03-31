@@ -296,7 +296,7 @@ const SuccessIcon = styled(Icon)`
 
 const ErrorIcon = styled(Icon)`
   --iconBg: var(--clr-gray-500);
-  animation: ${shake} 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: ${shake} 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 `;
 
 const Waiting = styled(RefreshCw)`
