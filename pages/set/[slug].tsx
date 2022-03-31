@@ -4,20 +4,20 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql } from "@apollo/client";
 import { ArrowRight, RefreshCw } from "react-feather";
 
 import type { CurrentWord, Set, Word } from "@/utils/types";
 import { createApolloClient } from "@/lib/apolloClient";
-import { useFetchUser } from "@/hooks/use-fetch-user";
 import {
   useGetMemorizedWordsLazyQuery,
   useGetWordsQuery,
   useInitMemorizedWordMutation,
 } from "@/graphql/generated/graphql";
 import { INITIAL_CURRENT_WORD, updateProgress } from "@/utils/helpers";
+import UserContext from "@/hooks/user-context";
 
 import { spinning } from "@/components/Loader/Loader";
 import { AppLayout } from "@/components/Layout";
@@ -45,7 +45,7 @@ interface SetProps extends InferGetStaticPropsType<typeof getStaticProps> {
  * ================================
  */
 const Set: NextPage<SetProps> = ({ set }) => {
-  const { user } = useFetchUser();
+  const { user } = useContext(UserContext);
   const [finished, setFinished] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   const [currentWord, setCurrentWord] =
@@ -153,7 +153,7 @@ const Set: NextPage<SetProps> = ({ set }) => {
   }, [currentWord, user]);
 
   return (
-    <AppLayout title={set.name} user={user}>
+    <AppLayout title={set.name}>
       <Wrapper>
         <Main>
           <PageHeader>

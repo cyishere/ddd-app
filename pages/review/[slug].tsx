@@ -4,7 +4,7 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import router from "next/router";
 import { gql } from "@apollo/client";
@@ -17,7 +17,7 @@ import {
   updateProgress,
 } from "@/utils/helpers";
 import { useGetUnfinishedWordsLazyQuery } from "@/graphql/generated/graphql";
-import { useFetchUser } from "@/hooks/use-fetch-user";
+import UserContext from "@/hooks/user-context";
 
 import { AppLayout } from "@/components/Layout";
 import ProgressBar from "@/components/ProgressBar";
@@ -32,7 +32,7 @@ interface ReviewProps extends InferGetStaticPropsType<typeof getStaticProps> {
 }
 
 const Review: NextPage<ReviewProps> = ({ set }) => {
-  const { user, isLoading } = useFetchUser();
+  const { user, userIsLoading: isLoading } = useContext(UserContext);
   const [
     getWords,
     { data: allWords, loading: allWordsLoading, error: allWordsError },
@@ -104,7 +104,7 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
   }
 
   return (
-    <AppLayout title="Review" user={user}>
+    <AppLayout title="Review">
       <Wrapper>
         <Main>
           <PageHeader>
