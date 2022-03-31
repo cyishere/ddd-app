@@ -2,13 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import type { Set, User } from "@/utils/types";
+import { QUERIES } from "@/styles/constants";
 import SetsContext from "@/hooks/sets-context";
 import { useGetLearnedWordsByUserLazyQuery } from "@/graphql/generated/graphql";
+
 import Avatar from "../Avatar";
 import { DisplaySmMedium, TextMedium, TextNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
 import Loader from "../Loader";
 import { LearnedCard } from "../Words";
+import { AppFooter } from "../Footer";
 
 interface ProfileProps {
   user: User;
@@ -89,6 +92,9 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
           </PlaceholderText>
         )}
       </Section>
+      <FooterWrapper>
+        <AppFooter />
+      </FooterWrapper>
     </Wrapper>
   );
 };
@@ -98,6 +104,10 @@ const Wrapper = styled.section`
   background-color: var(--clr-gray-25);
   width: 100%;
   height: 100vh;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    height: auto;
+  }
 `;
 
 const Header = styled.header`
@@ -111,6 +121,10 @@ const Header = styled.header`
 
   > *:not(:first-child) {
     z-index: 1;
+  }
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
   }
 `;
 
@@ -141,10 +155,24 @@ const Section = styled.section`
   > *:first-of-type {
     margin-bottom: 1.5rem;
   }
+
+  @media ${QUERIES.tabletAndSmaller} {
+    padding-top: var(--paddingX);
+    padding-bottom: var(--paddingX);
+  }
 `;
 
 const ErrorText = styled.span`
   color: var(--clr-red-500);
+`;
+
+const FooterWrapper = styled.div`
+  margin-top: auto;
+  display: none;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: block;
+  }
 `;
 
 export default Profile;

@@ -3,7 +3,9 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { PlayCircle } from "react-feather";
 
+import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
+
 import Layout from "@/components/Layout";
 import { Button, ButtonLink } from "@/components/Button";
 import {
@@ -135,6 +137,10 @@ const FeaturesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: calc(var(--spacingX) * 2);
+
+  @media ${QUERIES.phoneAndSmaller} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const FeatureColumn = styled.article`

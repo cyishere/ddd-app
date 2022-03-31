@@ -1,3 +1,4 @@
+import { QUERIES } from "@/styles/constants";
 import styled from "styled-components";
 
 import Emoji from "../Emoji";
@@ -34,6 +35,11 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${QUERIES.phoneAndSmaller} {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `;
 
 const TextLeft = styled.p`

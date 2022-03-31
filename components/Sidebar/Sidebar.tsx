@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Home, Activity, Settings, LogOut } from "react-feather";
 
+import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
 import Logo from "../Logo";
 import VisuallyHidden from "../VisuallyHidden";
@@ -84,6 +85,10 @@ const Wrapper = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
+  }
 `;
 
 const Nav = styled.nav`

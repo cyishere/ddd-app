@@ -1,84 +1,63 @@
 import { useContext, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
 import Link from "next/link";
+import styled, { css, keyframes } from "styled-components";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
-import { Menu, X } from "react-feather";
+import { X, Menu } from "react-feather";
 
 import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
-
-import Logo from "../Logo";
-import { DisplayXsMedium, TextMdMedium } from "../Typography";
 import { Button, ButtonLink } from "../Button";
+import { DisplayXsMedium, TextMdMedium } from "../Typography";
+import Logo from "../Logo";
 
-const Header: React.FC = () => {
+const MobileNav: React.FC = () => {
   const { user, userIsLoading: isLoading } = useContext(UserContext);
+
   const [showMobileNav, setShowMobileNav] = useState(false);
-  const openMobileNav = () => setShowMobileNav(true);
-  const closeMobileNav = () => setShowMobileNav(false);
+  const toggleMobileNav = () => setShowMobileNav(!showMobileNav);
 
   let NavAction;
 
   if (!user || isLoading) {
     NavAction = (
-      <Right>
+      <ActionWrapper>
         <ButtonLink variant="primary" href="/api/login">
           Login
         </ButtonLink>
-      </Right>
+      </ActionWrapper>
     );
   } else {
     NavAction = (
-      <Right>
+      <ActionWrapper>
         <TextLink as="span">Hello, {user.nickname}!</TextLink>
         <Link href="/dashboard" passHref>
           <TextLink>Dashboard</TextLink>
         </Link>
         <ButtonLink href="/api/logout">Logout</ButtonLink>
-      </Right>
+      </ActionWrapper>
     );
   }
 
+  const headerContent = (
+    <MobileNavHeader>
+      <SiteTitle>
+        <Logo />
+        <LogoText>DDD App</LogoText>
+      </SiteTitle>
+
+      <MobileNavBtn>
+        <Button onClick={toggleMobileNav}>
+          {showMobileNav ? <X /> : <Menu />}
+        </Button>
+      </MobileNavBtn>
+    </MobileNavHeader>
+  );
+
   return (
     <Wrapper>
-      <Container>
-        <SiteTitle>
-          <Logo />
-          <LogoText>DDD App</LogoText>
-        </SiteTitle>
-
-        <Nav>
-          <Left>
-            <Link href="/" passHref>
-              <TextLink>Home</TextLink>
-            </Link>
-            <Link href="/about" passHref>
-              <TextLink>How&#39;s this work?</TextLink>
-            </Link>
-          </Left>
-          {NavAction}
-        </Nav>
-
-        <MobileNavBtn>
-          <Button onClick={openMobileNav}>
-            <Menu />
-          </Button>
-        </MobileNavBtn>
-      </Container>
-
-      <MobileNav isOpen={showMobileNav}>
-        <MobileNavHeader>
-          <SiteTitle>
-            <Logo />
-            <LogoText>DDD App</LogoText>
-          </SiteTitle>
-
-          <MobileNavBtn>
-            <Button onClick={closeMobileNav}>
-              <X />
-            </Button>
-          </MobileNavBtn>
-        </MobileNavHeader>
+      {headerContent}
+      <Overlay isOpen={showMobileNav}>
+        {headerContent}
         <MobileNavContent>
           <MobileNavLink>
             <Link href="/" passHref>
@@ -90,7 +69,7 @@ const Header: React.FC = () => {
           </MobileNavLink>
           {NavAction}
         </MobileNavContent>
-      </MobileNav>
+      </Overlay>
     </Wrapper>
   );
 };
@@ -101,34 +80,28 @@ const FlexBetween = css`
   align-items: center;
 `;
 
-const Wrapper = styled.header`
-  padding: var(--spacingX);
-`;
-
-const Container = styled.div`
-  ${FlexBetween}
-  max-width: var(--maxWidth);
-  margin: 0 auto;
-  gap: var(--spacingX);
-`;
-
-const Nav = styled.nav`
-  ${FlexBetween}
-  flex: 1;
+const Wrapper = styled.div`
+  display: none;
 
   @media ${QUERIES.tabletAndSmaller} {
-    display: none;
+    display: block;
   }
 `;
 
-const Left = styled.div`
-  ${FlexBetween}
-  gap: var(--spacingX);
+const Overlay = styled(DialogOverlay)`
+  --spacingX: 2rem;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 
-const Right = styled.div`
+const MobileNavHeader = styled.header`
   ${FlexBetween}
-  gap: calc(var(--spacingX) / 2);
+  background-color: var(--clr-white);
+  border-bottom: 1px solid var(--clr-gray-100);
+  padding: 2rem;
 `;
 
 const TextLink = styled.a`
@@ -155,22 +128,6 @@ const MobileNavBtn = styled.div`
   }
 `;
 
-const MobileNav = styled(DialogOverlay)`
-  --spacingX: 2rem;
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
-
-const MobileNavHeader = styled.header`
-  ${FlexBetween}
-  background-color: var(--clr-white);
-  border-bottom: 1px solid var(--clr-gray-100);
-  padding: var(--spacingX);
-`;
-
 const slideDown = keyframes`
   0% {
     transform: translateY(-100%);
@@ -188,12 +145,6 @@ const MobileNavContent = styled(DialogContent)`
   flex-direction: column;
   justify-content: space-between;
   animation: ${slideDown} 500ms ease-in-out;
-
-  & ${Right} {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
 `;
 
 const MobileNavLink = styled.nav`
@@ -210,4 +161,11 @@ const MobileNavLink = styled.nav`
   }
 `;
 
-export default Header;
+const ActionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: calc(var(--spacingX) / 2);
+`;
+
+export default MobileNav;

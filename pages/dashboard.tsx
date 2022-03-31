@@ -3,7 +3,11 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import router from "next/router";
 
+import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
+import SetsContext from "@/hooks/sets-context";
+import { useGetSetsQuery } from "@/graphql/generated/graphql";
+
 import { AppLayout } from "@/components/Layout";
 import { AppHeader } from "@/components/Header";
 import { TextLarge } from "@/components/Typography";
@@ -11,8 +15,6 @@ import Profile from "@/components/Profile";
 import { AppFooter } from "@/components/Footer";
 import { PlaceholderPage } from "@/components/Placeholder";
 import { ToLearn, ToReview } from "@/components/Words";
-import { useGetSetsQuery } from "@/graphql/generated/graphql";
-import SetsContext from "@/hooks/sets-context";
 
 const Dashboard: NextPage = () => {
   const { user, userIsLoading: isLoading } = useContext(UserContext);
@@ -57,7 +59,9 @@ const Dashboard: NextPage = () => {
 
               <ToLearn userId={user.sub} />
             </Section>
-            <AppFooter />
+            <FooterWrapper>
+              <AppFooter />
+            </FooterWrapper>
           </Main>
           <Profile user={user} />
         </Wrapper>
@@ -69,7 +73,11 @@ const Dashboard: NextPage = () => {
 const Wrapper = styled.div`
   --spacing: 2rem;
   display: grid;
-  grid-template-columns: 1fr 390px;
+  grid-template-columns: 1fr 300px;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Main = styled.main`
@@ -89,6 +97,14 @@ const Section = styled.section`
 const SectionHeader = styled.header`
   color: var(--clr-gray-900);
   margin-bottom: var(--spacing);
+`;
+
+const FooterWrapper = styled.div`
+  margin-top: auto;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
+  }
 `;
 
 export default Dashboard;
