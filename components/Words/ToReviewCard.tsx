@@ -27,7 +27,7 @@ const ToReviewCard: React.FC<ToReviewCardProps> = ({
   useEffect(() => {
     if (startedWords && startedWords.memorizedWords.length > 0) {
       const availableWords = startedWords.memorizedWords.filter((word) =>
-        reviewAvailable(word.available_at, word.review!)
+        reviewAvailable(word.available_at)
       );
       setUnstarted(false);
       setsStarted.current.push(true);

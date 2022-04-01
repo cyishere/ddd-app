@@ -12,34 +12,18 @@ export const INITIAL_CURRENT_WORD = {
 /**
  * Check whether the word is ready for review.
  * @param date The current value of `available_at`
- * @param review The current review number
  * @returns `true` or `false`
  */
-export const reviewAvailable = (date: string, review: number): boolean => {
-  const future = new Date(date);
-  const now = Date.now();
-  const differenceInTime = future.getTime() - now;
-  const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24);
+export const reviewAvailable = (date: string): boolean => {
+  const availableAtInstant = Temporal.Instant.from(date);
+  const availableMillionseconds = availableAtInstant.epochMilliseconds;
 
-  switch (review) {
-    case 0:
-      return true;
+  const nowInstant = Temporal.Now.zonedDateTimeISO();
+  const nowMillionseconds = nowInstant.epochMilliseconds;
 
-    case 1:
-      return differenceInDays - 1 < 0 ? true : false;
+  const differenceInTime = availableMillionseconds - nowMillionseconds;
 
-    case 2:
-      return differenceInDays - 4 < 0 ? true : false;
-
-    case 3:
-      return differenceInDays - 14 < 0 ? true : false;
-
-    case 4:
-      return differenceInDays - 60 < 0 ? true : false;
-
-    default:
-      return false;
-  }
+  return differenceInTime < 0;
 };
 
 /**
@@ -69,10 +53,10 @@ export const newReviewDate = (newReview: number): string => {
 
   const waitingDays = getWaitingDays(newReview);
 
-  const now = Temporal.Now.plainDateTimeISO();
+  const now = Temporal.Now.zonedDateTimeISO();
   const availableDate = now.add({ days: waitingDays }).toString();
 
-  return availableDate;
+  return availableDate.split("[")[0];
 };
 
 /**

@@ -62,7 +62,7 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
   useEffect(() => {
     if (allWords && allWords.memorizedWords) {
       const availabledWords = allWords.memorizedWords.filter((word) =>
-        reviewAvailable(word.available_at, word.review!)
+        reviewAvailable(word.available_at)
       );
       setWords(availabledWords as MemorizedWord[]);
     }
