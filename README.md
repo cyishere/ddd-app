@@ -1,5 +1,12 @@
+<p align="center">
+  <img src="https://res.cloudinary.com/cyishere/image/upload/v1648779156/projects/ddd-logo_vitwkp.png" alt="Logo">
+</p>
+
 # DDD App
 
-- [ ] write readme
-- [ ] deploy
-- [ ] delete "Set 2" in database
+A tool to help remember German nouns.
+
+## Features
+
+- Three colors indicate three gender nouns;
+- SRS algorithms help to review the words.
