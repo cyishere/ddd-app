@@ -7,7 +7,7 @@ import SetsContext from "@/hooks/sets-context";
 import { useGetLearnedWordsByUserLazyQuery } from "@/graphql/generated/graphql";
 
 import Avatar from "../Avatar";
-import { DisplaySmMedium, TextMedium, TextNormal } from "../Typography";
+import { DisplaySmMedium, TextMdMedium, TextMdNormal } from "../Typography";
 import { PlaceholderText } from "../Placeholder";
 import Loader from "../Loader";
 import { LearnedCard } from "../Words";
@@ -66,10 +66,10 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
           <Avatar imageUrl={user.picture} size="large" />
         </AvatarContainer>
         <Name>{user.nickname}</Name>
-        <TextNormal as="p">{user.email}</TextNormal>
+        <Email>{user.email}</Email>
       </Header>
       <Section>
-        <TextMedium as="h2">Words Learned</TextMedium>
+        <SectionTitle>Words Learned</SectionTitle>
         {setsLoading || learnedLoading ? (
           <PlaceholderText>
             <Loader size={48} />
@@ -137,6 +137,11 @@ const Name = styled.h2`
   color: var(--clr-gray-900);
 `;
 
+const Email = styled.p`
+  ${TextMdNormal}
+  color: var(--clr-gray-500);
+`;
+
 const HeaderBg = styled.div`
   background-image: var(--gradient-placeholder);
   width: 100%;
@@ -160,6 +165,10 @@ const Section = styled.section`
     padding-top: var(--paddingX);
     padding-bottom: var(--paddingX);
   }
+`;
+
+const SectionTitle = styled.h2`
+  ${TextMdMedium}
 `;
 
 const ErrorText = styled.span`

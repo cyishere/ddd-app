@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { createdAt, thisYear } from "./footer-helpers";
-import { TextSmall } from "../Typography";
+import { TextSmMedium } from "../Typography";
 
 const AppFooter: React.FC = () => {
   return (
@@ -22,6 +22,10 @@ const Wrapper = styled.footer`
   padding-top: var(--spacing);
   padding-bottom: var(--spacing);
   margin: auto var(--spacing) 0 var(--spacing);
+`;
+
+const TextSmall = styled.p`
+  ${TextSmMedium}
 `;
 
 export default AppFooter;

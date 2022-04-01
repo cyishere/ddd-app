@@ -1,9 +1,4 @@
 export {
-  TextSmall,
-  TextNormal,
-  TextMedium,
-  TextLarge,
-  //
   DisplayXlSemiBold,
   DisplayXsMedium,
   DisplaySmSemiBold,
@@ -13,4 +8,5 @@ export {
   TextLgNormal,
   TextMdMedium,
   TextMdNormal,
+  TextSmMedium,
 } from "./Typography";

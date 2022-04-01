@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Home, Activity, Settings, LogOut } from "react-feather";
+import { Home, Activity, LogOut } from "react-feather";
 
 import { QUERIES } from "@/styles/constants";
 import UserContext from "@/hooks/user-context";
@@ -46,15 +46,6 @@ const Sidebar: React.FC = () => {
       </Nav>
       <Footer>
         <NavList>
-          <NavItem>
-            <Link href="/dashboard/settings" passHref>
-              <NavLink
-                className={pathname === "dashboard/settings" ? "active" : ""}
-              >
-                <Settings />
-              </NavLink>
-            </Link>
-          </NavItem>
           <NavItem>
             <Link href="/api/logout" passHref>
               <NavLink>

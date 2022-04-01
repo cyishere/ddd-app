@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { DisplaySmMedium, TextNormal } from "../Typography";
+import { DisplaySmMedium, TextMdNormal } from "../Typography";
 
 interface AppHeaderProps {
   title: string;
@@ -11,7 +11,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ title, subTitle }) => {
   return (
     <Wrapper>
       <Title>{title}</Title>
-      <TextNormal as="p">{subTitle}</TextNormal>
+      <Sub>{subTitle}</Sub>
     </Wrapper>
   );
 };
@@ -24,6 +24,11 @@ const Wrapper = styled.header`
 const Title = styled.h1`
   ${DisplaySmMedium}
   color: var(--clr-gray-900);
+`;
+
+const Sub = styled.p`
+  ${TextMdNormal}
+  color: var(--clr-gray-500);
 `;
 
 export default AppHeader;

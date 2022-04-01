@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import styled from "styled-components";
 
-import { TextSmall } from "../Typography";
+import { TextSmMedium } from "../Typography";
 
 interface BadgeProps {
   color?: "default" | "primary" | "green" | "yellow";
@@ -31,7 +31,8 @@ const Badge: React.FC<BadgeProps> = ({ color = "default", children }) => {
   return <Wrapper style={styles as CSSProperties}>{children}</Wrapper>;
 };
 
-const Wrapper = styled(TextSmall)`
+const Wrapper = styled.span`
+  ${TextSmMedium}
   color: var(--color);
   background-color: var(--bgColor);
   border-radius: 1rem;

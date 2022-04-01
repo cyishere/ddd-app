@@ -10,7 +10,7 @@ import { useGetSetsQuery } from "@/graphql/generated/graphql";
 
 import { AppLayout } from "@/components/Layout";
 import { AppHeader } from "@/components/Header";
-import { TextLarge } from "@/components/Typography";
+import { TextLgMedium } from "@/components/Typography";
 import Profile from "@/components/Profile";
 import { AppFooter } from "@/components/Footer";
 import { PlaceholderPage } from "@/components/Placeholder";
@@ -46,7 +46,7 @@ const Dashboard: NextPage = () => {
 
             <Section>
               <SectionHeader>
-                <TextLarge as="h2">Words To Review</TextLarge>
+                <SectionTitle>Words To Review</SectionTitle>
               </SectionHeader>
 
               <ToReview userId={user.sub} />
@@ -54,7 +54,7 @@ const Dashboard: NextPage = () => {
 
             <Section>
               <SectionHeader>
-                <TextLarge as="h2">Words To Learn</TextLarge>
+                <SectionTitle>Words To Learn</SectionTitle>
               </SectionHeader>
 
               <ToLearn userId={user.sub} />
@@ -97,6 +97,10 @@ const Section = styled.section`
 const SectionHeader = styled.header`
   color: var(--clr-gray-900);
   margin-bottom: var(--spacing);
+`;
+
+const SectionTitle = styled.h2`
+  ${TextLgMedium};
 `;
 
 const FooterWrapper = styled.div`

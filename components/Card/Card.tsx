@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Badge from "../Badge";
 
 import { FlexBetween } from "../Box";
-import { DisplaySmMedium, TextNormal } from "../Typography";
+import { DisplaySmMedium, TextMdNormal } from "../Typography";
 
 interface CardProps {
   color?: "default" | "green" | "yellow";
@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Wrapper style={styles as CSSProperties}>
-      <TextNormal as="h3">{title}</TextNormal>
+      <Title>{title}</Title>
       <FlexBetween>
         <Number>{number}</Number>
         {percentage ? <Badge color={color}>{percentage}</Badge> : null}
@@ -67,6 +67,11 @@ const Wrapper = styled.div`
   &:hover {
     box-shadow: var(--bs-md);
   }
+`;
+
+const Title = styled.h3`
+  ${TextMdNormal}
+  color: var(--clr-gray-500);
 `;
 
 const Number = styled.p`
