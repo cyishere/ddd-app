@@ -38,8 +38,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# GraphQL
-/graphql/generated
 
 yarn.lock
 package-lock.json
