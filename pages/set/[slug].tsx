@@ -66,7 +66,6 @@ const Set: NextPage<SetProps> = ({ set }) => {
     variables: { set_id: set.id! },
   });
 
-  // TODO refactor
   // Define the function that can get the learning words of this set
   const [
     getMemorizedWords,

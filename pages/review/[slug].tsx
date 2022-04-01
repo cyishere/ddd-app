@@ -22,7 +22,7 @@ import UserContext from "@/hooks/user-context";
 import { AppLayout } from "@/components/Layout";
 import ProgressBar from "@/components/ProgressBar";
 import { AppFooter } from "@/components/Footer";
-import { DisplaySmMedium } from "@/components/Typography";
+import { DisplaySmMedium, TextXlMedium } from "@/components/Typography";
 import { PlaceholderPage, PlaceholderText } from "@/components/Placeholder";
 import Loader from "@/components/Loader";
 import { WordContentInForm } from "@/components/Words";
@@ -42,6 +42,7 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
     useState<CurrentWord>(INITIAL_CURRENT_WORD);
   const [progress, setProgress] = useState(0);
   const [next, setNext] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   // Check whether the user is logged
   useEffect(() => {
@@ -83,14 +84,18 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
   // Get the next word
   useEffect(() => {
     if (next) {
-      setCurrentWord((prev) => ({
-        word: words[prev.index! + 1].word,
-        index: prev.index! + 1,
-        memorized_id: words[prev.index! + 1].id,
-        review: words[prev.index! + 1].review!,
-      }));
-      setNext(false);
-      updateProgress(currentWord.index, words.length, setProgress);
+      if (currentWord.index < words.length - 1) {
+        setCurrentWord((prev) => ({
+          word: words[prev.index! + 1].word,
+          index: prev.index! + 1,
+          memorized_id: words[prev.index! + 1].id,
+          review: words[prev.index! + 1].review!,
+        }));
+        setNext(false);
+        updateProgress(currentWord.index, words.length, setProgress);
+      } else {
+        setFinished(true);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [next, words]);
@@ -121,6 +126,8 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
             </PlaceholderText>
           ) : allWordsError ? (
             <ErrorText>{allWordsError.message}</ErrorText>
+          ) : finished ? (
+            <NotifyText>You&#39;ve finished this set!</NotifyText>
           ) : (
             <WordContentInForm
               currentWord={currentWord}
@@ -180,6 +187,11 @@ const Section = styled.section`
 
 const ErrorText = styled.p`
   color: var(--clr-red-500);
+`;
+
+const NotifyText = styled.p`
+  ${TextXlMedium}
+  color: var(--clr-gray-900);
 `;
 
 /**
