@@ -9,12 +9,11 @@ import Layout from "@/components/Layout";
 import { ButtonLink } from "@/components/Button";
 import {
   DisplaySmSemiBold,
-  DisplayXlSemiBold,
   TextLgMedium,
   TextLgNormal,
-  TextXlMedium,
 } from "@/components/Typography";
 import { CheckIcon, DotIcon } from "@/components/Decorations";
+import { ActionGroup, Cta, Description, Greeting } from "@/components/Cta";
 
 const Home: NextPage = () => {
   const { user } = useContext(UserContext);
@@ -82,36 +81,6 @@ const Home: NextPage = () => {
     </Layout>
   );
 };
-
-const Cta = styled.section`
-  --spacingY: 3rem;
-  --spacingX: 2rem;
-  text-align: center;
-  padding: calc(var(--spacingY) * 2) var(--spacingX);
-
-  & > *:not(:last-child) {
-    margin-bottom: var(--spacingY);
-  }
-`;
-
-const Greeting = styled.h2`
-  ${DisplayXlSemiBold}
-  color: var(--clr-gray-900);
-`;
-
-const Description = styled.p`
-  ${TextXlMedium}
-  color: var(--clr-gray-500);
-  max-width: 36ch;
-  margin: 0 auto;
-`;
-
-const ActionGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: calc(var(--spacingX) / 2);
-`;
 
 const Features = styled.section`
   padding: calc(var(--spacingY) * 2) var(--spacingX);
