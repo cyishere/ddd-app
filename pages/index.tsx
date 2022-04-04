@@ -23,10 +23,10 @@ const Home: NextPage = () => {
       <Cta>
         <Greeting>A neat tool helps you learn German nouns.</Greeting>
         <Description>
-          DDD is not just a flashcard.
+          DDD is more than a flashcard.
           <br />
-          We use color to present different type nouns, and provide SRS system
-          to help you to remember them.
+          We use color to represent different types of nouns and provide an SRS
+          system to help you to remember them.
         </Description>
         <ActionGroup>
           {user ? (
@@ -45,9 +45,10 @@ const Home: NextPage = () => {
         <FeaturesContainer>
           <FeatureColumn>
             <DotIcon />
-            <FeatureTitle>Visually Help with Colors</FeatureTitle>
+            <FeatureTitle>Visual Assist with Colors</FeatureTitle>
             <FeatureExplain>
-              Three colors present three genders of German nouns.
+              Three different colors represent the three genders of German
+              nouns.
             </FeatureExplain>
             <FeatureDetails>
               <FeatureDetailsItem>
@@ -68,8 +69,8 @@ const Home: NextPage = () => {
             <DotIcon />
             <FeatureTitle>Spaced Repetition System</FeatureTitle>
             <FeatureExplain>
-              Our SRS algorithm adjusts time between reviews for each individual
-              word, calculated by your last session.
+              Our SRS algorithm adjusts the time between reviews for each
+              individual word, calculated by your last session.
             </FeatureExplain>
             <FeatureExplain>
               You don’t need to choose “remembered” or not manually, and save
