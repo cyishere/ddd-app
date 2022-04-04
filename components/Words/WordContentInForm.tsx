@@ -291,7 +291,7 @@ const Icon = styled.div`
 
 const SuccessIcon = styled(Icon)`
   --iconBg: var(--clr-yellow-300);
-  animation: ${zoomIn} 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: ${zoomIn} 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 `;
 
 const ErrorIcon = styled(Icon)`
