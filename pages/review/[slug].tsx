@@ -59,7 +59,7 @@ const Review: NextPage<ReviewProps> = ({ set }) => {
   }, [getWords, set.id, user]);
 
   // filter words that ready to review from allWords
-  // base on the `updated_at` value: whether it is less than one day
+  // base on the `available_at` value: whether it is in the past
   useEffect(() => {
     if (allWords && allWords.memorizedWords) {
       const availabledWords = allWords.memorizedWords.filter((word) =>
